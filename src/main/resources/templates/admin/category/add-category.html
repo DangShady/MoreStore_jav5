@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.utraq.net.nz/thymeleaf/layout"
+		layout:decorator="/admin/layout-admin">
+<head>
+<meta charset="UTF-8">
+<title>Emplae Category</title>
+</head>
+<body>
+	<div class="nk-content " layout:fragment="content">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                    <div class="nk-block-head">
+                                        <div class="nk-block-head-content">
+                                            <h5 class="nk-block-title">New Category</h5>
+                                            <div class="nk-block-des">
+                                                <p>Add new information category.</p>
+                                            </div>
+                                        </div>
+                                    </div><!-- .nk-block-head -->
+                                    <div class="nk-block">
+                                    <form action="#" th:action="@{/admin/add-category}" th:object="${category}" method="post">
+                                        <div class="row g-3">
+                                        
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="product-title">Id</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" th:field="*{id}" class="form-control" placeholder="Id" id="id">
+                                                        <p th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="product-title">Loại sản phẩm</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" th:field="*{name}" class="form-control" placeholder="Name" id="name">
+                                                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-12">
+                                                <button class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Thêm mới</span></button>
+                                            </div>
+                                           
+                                        </div>
+                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</body>
+</html>

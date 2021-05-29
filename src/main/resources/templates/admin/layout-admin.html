@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.utraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title layout:title-pattern="$DECORATOR_TITLE-$CONTENT_TITLE">Admin</title>
+<style th:replace="/admin/share/style"></style>
+</head>
+<body class="nk-body bg-lighter npc-general has-sidebar ">
+	<div class="nk-app-root">
+		<div class="nk-main ">
+			
+			<div th:replace="/admin/share/aside-left"></div>
+			
+			<div class="nk-wrap ">
+			
+				<div th:replace="/admin/share/header"></div>
+
+				<div layout:fragment="content"></div>
+
+				<div th:replace="/admin/share/footer"></div>
+			
+			</div>
+
+		</div>
+	</div>
+
+
+	<div th:replace="/admin/share/script"></div>
+
+	<div th:fragment="script"></div>
+</body>
+</html>

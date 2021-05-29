@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.utraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title layout:title-pattern="$DECORATOR_TITLE-$CONTENT_TITLE">Moon</title>
+<style th:replace="/site/share/style"></style>
+
+</head>
+<body class="animsition">
+
+	<div th:replace="/site/share/header"></div>
+	
+	<div layout:fragment="content"></div>
+	
+	<div th:replace="/site/share/footer"></div>
+	
+	<div th:replace="/site/share/backtotop"></div>
+	
+	<div th:replace="/site/share/script" ></div>
+	
+	<div th:fragment="script"></div>
+</body>
+</html>

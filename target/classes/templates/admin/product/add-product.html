@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.utraq.net.nz/thymeleaf/layout"
+		layout:decorator="/admin/layout-admin">
+<head>
+<meta charset="UTF-8">
+<title>Thêm sản phẩm</title>
+</head>
+<body>
+	<div class="nk-content " layout:fragment="content">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                    <div class="nk-block-head">
+                                        <div class="nk-block-head-content">
+                                            <h5 class="nk-block-title">New Product</h5>
+                                            <div class="nk-block-des">
+                                                <p>Add information and add new product.</p>
+                                            </div>
+                                        </div>
+                                    </div><!-- .nk-block-head -->
+                                    <div class="nk-block">
+                                    <form action="#" th:action="@{/admin/add-product}" th:object="${product}" enctype="multipart/form-data" method="post">
+                                        <div class="row g-3">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="product-title">Tên sản phẩm</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" th:field="*{name}" id="product-title">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-mb-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="regular-price">Giá sản phẩm</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" th:field="*{price}" id="regular-price">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-mb-6">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="sale-price">Số lượng <price></price></label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" th:field="*{quantity}" id="sale-price">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="category">Ngày nhập</label>
+                                                    <div class="form-group">
+                                                        <div class="form-control-wrap">
+                                                            <div class="form-icon form-icon-right">
+                                                                <em class="icon ni ni-calendar-alt"></em>
+                                                            </div>
+                                                             	<input type="text" th:field="*{productdate}" class="form-control date-picker" >
+                                                            <!-- <input type="date" th:filed="*{productDate}" > -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="category">Loại sản phẩm</label>
+                                                    <div class="form-group">
+                                                        <div class="form-control-wrap">
+                                                            <select class="form-select form-control form-control-lg" th:field="*{category.id}" data-search="on">
+                                                                <option value="default_option">Chưa có loại</option>
+                                                                <option th:each="cate : ${categorys}"
+											                            th:value="${cate.id}"
+											                            th:text="${cate.name}"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="tags">Mô tả</label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" th:field="*{description}" id="tags">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-12">
+                                                <div class="form-group">
+                                                      <label class="form-label" for="category">Trạng thái</label>
+                                                      <div class="custom-control custom-radio">
+                                                          <input type="radio" value="true" name="status" th:field="*{available}" class="custom-control-input">
+                                                          <label class="custom-control-label" for="customRadio2">Có sẵn</label>
+                                                      </div>
+                                                      <div class="custom-control custom-radio">
+                                                           <input type="radio" value="false" name="status" th:field="*{available}" class="custom-control-input">
+                                                           <label class="custom-control-label" for="customRadio1">Không có sẵn</label>
+                                                      </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="col-12">
+                                                <div class="file-upload">
+                                                    <div class="image-upload-wrap">
+                                                        <input class="file-upload-input" name="file_product" type='file' th:filed="*{image}" onchange="readURL(this);" accept="image/*" />
+                                                        <div class="drag-text">
+                                                            <p>Kéo và thả ảnh hoặc chọn thêm ảnh</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="file-upload-content">
+                                                        <img class="file-upload-image" src="#" alt="your image" />
+                                                        <div class="image-title-wrap">
+                                                            <button type="button" onclick="removeUpload()" class="remove-image">Xóa ảnh<span
+                                                                    class="image-title">Uploaded Image</span></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <button class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Thêm mới</span></button>
+                                            </div>
+                                        </div>
+                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</body>
+</html>
