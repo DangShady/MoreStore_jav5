@@ -68,7 +68,7 @@
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
                                                             <select class="form-select form-control form-control-lg" th:field="*{category.id}" data-search="on">
-                                                                <option value="default_option">Chưa có loại</option>
+                                                                <!-- <option value="default_option">Chưa có loại</option> -->
                                                                 <option th:each="cate : ${categorys}"
 											                            th:value="${cate.id}"
 											                            th:text="${cate.name}"></option>
@@ -115,9 +115,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
+                                            <div class="col-12" th:if="${#httpServletRequest.requestURI == '/admin/form-product'}">
                                                 <button class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Thêm mới</span></button>
                                             </div>
+                                            
                                         </div>
                                      </form>
                                 </div>

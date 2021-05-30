@@ -20,7 +20,7 @@
                                         </div>
                                     </div><!-- .nk-block-head -->
                                     <div class="nk-block">
-                                    <form action="#" th:action="@{/admin/add-product}" th:object="${product}" enctype="multipart/form-data" method="post">
+                                    <form action="#" th:action="@{/admin/update-product/{id}(id=${product.id})}" th:object="${product}" enctype="multipart/form-data" method="post">
                                         <div class="row g-3">
                                             <div class="col-12">
                                                 <div class="form-group">
@@ -115,8 +115,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12" th:if="${#httpServletRequest.requestURI == '/admin/form-product'}">
-                                                <button class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Thêm mới</span></button>
+                                            <div class="col-12">
+                                                <button class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Cập nhập</span></button>
                                             </div>
                                             
                                         </div>

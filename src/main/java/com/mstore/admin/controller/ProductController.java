@@ -19,6 +19,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mstore.domain.Category;
 import com.mstore.domain.Product;
 import com.mstore.helps.ConvertString;
+import com.mstore.helps.UploadsFile;
 import com.mstore.repository.CategoryDAO;
 import com.mstore.repository.ProductDAO;
 
@@ -66,8 +68,6 @@ public class ProductController {
 	@GetMapping("form-product")
 	public String formAddProduct(Product product,Model model) {
 		
-		
-		
 		return "admin/product/add-product";
 	}
 	
@@ -76,53 +76,79 @@ public class ProductController {
 			Model model) throws IllegalStateException, IOException{
 		
 		if(result.hasErrors()) {
-			return "admin/product/add-category";
+			return "admin/product/update-product";
 		}
 		
-//		String path = app.getRealPath("/static/images/products/"+product.getName());
-//		File fileDir = new File(path);
-//		if(!fileDir.exists()) {
-//			fileDir.mkdirs();
-//		}
-//		System.out.println("File link: " + fileDir);
-//		if(file.isEmpty()) {
-//			product.setImage("no_product.png");
-//		}
-//		else {
-//			product.setImage(file.getOriginalFilename());
-//			
-//			file.transferTo(new File(path+"/"+product.getImage()));
-//			
-//			System.out.println("File link: " + path+"/"+product.getImage());
-//			
-//		}
+		if(file.isEmpty()) {
+			product.setImage("no-product.png");
+			
+		}
+		else {
 		
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		
 		product.setImage(fileName);
+
+		String uploadDir = "./src/main//resources/static/images/products/" + product.getName();
+		
+		UploadsFile.uploadImage(file, uploadDir, fileName);
+		}	
 		
 		this.proDao.save(product);
 		
+		return "redirect:product";
+	}
+	
+	@GetMapping("edit-product/{id}")
+	public String editProduct(@PathVariable("id") int id,Model model) {
+		Product product = proDao.findById(id).
+				orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));;
+		model.addAttribute("product", product);
+		
+		return "admin/product/update-product";
+	}
+	
+	@PostMapping("update-product/{id}")
+	public String updateCategory(@PathVariable("id") int id,@Valid Product product,BindingResult result,@RequestParam("file_product") MultipartFile file,
+			Model model) throws IllegalStateException, IOException{
+		
+		if(result.hasErrors()) {
+			product.setId(id);
+			return "admin/product/update-product";
+		}
+		
+		if(file.isEmpty()) {
+			product.setImage(product.getImage());
+			
+		}
+		else {
+		
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		
+		product.setImage(fileName);
+
 		String uploadDir = "./src/main//resources/static/images/products/" + product.getName();
 		
-		Path uploadPath = Paths.get(uploadDir);
+		UploadsFile.uploadImage(file, uploadDir, fileName);
+		}	
 		
-		if(!Files.exists(uploadPath)) {
-			Files.createDirectories(uploadPath);
-		}
+		this.proDao.save(product);
 		
-		try(InputStream inputStream = file.getInputStream()){
+		System.out.println("Filename" + file.getOriginalFilename());
+		model.addAttribute("products",this.proDao.findAll());
 		
-		Path filePath = uploadPath.resolve(fileName);
-		
-		System.out.println("File name: "+ filePath.toFile().getAbsolutePath());
-		
-		Files.copy(inputStream, filePath ,StandardCopyOption.REPLACE_EXISTING);
-		
-		}catch (Exception e) {
-			throw new IOException("Could not save upload file:" + fileName);
-		}
-		
-		return "redirect:product";
+		return "admin/product/product";
+	}
+	
+	@GetMapping("delete-product/{id}")
+	public String deleteUser(@PathVariable("id") int id, Model model) {
+	    Product product = proDao.findById(id)
+	      .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+	    
+	    this.proDao.delete(product);
+	    
+	    model.addAttribute("products", this.proDao.findAll());
+	    
+	    return "admin/product/product";
 	}
 }
