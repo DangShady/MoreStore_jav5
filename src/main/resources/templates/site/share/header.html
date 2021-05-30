@@ -48,25 +48,30 @@
 							</li>
 							<li class="active-menu">
 								<a href="index.html">Áo</a>
-								<ul class="sub-menu">
-									<li><a href="index.html">Áo khoác</a></li>
-									<li><a href="home-02.html">Áo phông</a></li>
-									<li><a href="home-03.html">Áo sơ mi</a></li>
+								<ul class="sub-menu" >
+									<li th:each="shirt : ${shirts}">
+									<a th:href="@{/mstore/list-product/product/{id}(id=${shirt.id})}" th:utext="${shirt.name}" th:value="${shirt.id}"></a>
+									</li>
+									
 								</ul>
 							</li>
 
 							<li class="">
 								<a href="index.html">Quần</a>
 								<ul class="sub-menu">
-									<li><a href="index.html">Quần tây</a></li>
-									<li><a href="home-02.html">Quần short</a></li>
+									<li th:each="pant : ${pants}">
+									<a th:href="@{/mstore/list-product/product/{id}(id=${pant.id})}" th:utext="${pant.name}" th:value="${pant.id}"></a>
+									</li>
+									
 								</ul>
 							</li>
 							<li class="">
 								<a href="index.html">Phụ kiện</a>
 								<ul class="sub-menu">
-									<li><a href="index.html">Chân váy</a></li>
-									<li><a href="home-02.html">Váy dài</a></li>
+									<li th:each="accessori: ${accessories}">
+									<a th:href="@{/mstore/list-product/product/{id}(id=${accessori.id})}" th:utext="${accessori.name}" th:value="${accessori.id}"></a>
+									</li>
+									
 								</ul>
 							</li>
 							<li>

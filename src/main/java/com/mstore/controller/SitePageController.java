@@ -7,11 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/mstore")
 public class SitePageController {
 
-	@RequestMapping({"/home", "/"})
-	public String homePage() {
-		
-		return "site/index";
-	}
 	
 	@RequestMapping("/about")
 	public String about() {
@@ -23,9 +18,8 @@ public class SitePageController {
 	}
 	
 	@RequestMapping("/product-detail")
-	public String detailsClothes() {
-		
-		return "site/product-detail";
+	public String productDetail() {
+		return "site/products/product-detail";
 	}
 	
 	@RequestMapping("/checkout")
@@ -34,11 +28,6 @@ public class SitePageController {
 		return "site/shopping-cart";
 	}
 	
-	@RequestMapping("/product")
-	public String product() {
-		
-		return "site/product";
-	}
 	
 	@RequestMapping("/login")
 	public String login() {
