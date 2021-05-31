@@ -7,19 +7,19 @@
 <title>Sản phẩm</title>
 </head>
 <body>
-	<div layout:fragment="content">
+<div class="bg0 m-t-23 p-b-140" layout:fragment="content">
+		<div class="container">
 			<div th:replace="/site/share/sortProduct"></div>
 
-			<div class="row isotope-grid">				
-				
+			<div class="row isotope-grid ">						
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women" th:each="product: ${products}">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
 							<img th:src="@{'/images/products/'+${product.name}+'/'+${product.image}}" alt="IMG-PRODUCT">
 
-							<a class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-								Preview
+							<a th:href="@{/mstore/product-detail/product/{id}(id=${product.id})}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+								Xem chi tiết
 							</a>
 						</div>
 
@@ -46,13 +46,22 @@
 			</div>
 
 			<!-- Load more -->
-			<div class="flex-c-m flex-w w-full p-t-45">
-				<a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+			<!-- <div class="flex-c-m flex-w w-full p-t-45">
+				<a href="#" id="loadMore" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15">
 					Load More
+				</a>
+			</div> -->
+			<!-- Pagination -->
+			<div class="flex-c-m flex-w w-full p-t-38">
+				<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
+					1
+				</a>
+
+				<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
+					2
 				</a>
 			</div>
 		</div>
-	</div>
 	</div>
 </body>
 </html>

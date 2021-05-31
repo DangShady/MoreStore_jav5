@@ -16,6 +16,20 @@
 			});
 		})
 	</script>
+	
+	<script>
+	$(".box-hidden").slice(0, 4).show(); //showing 3 div
+
+	$("#loadMore").on("click",function(){
+		$(".box-hidden:hidden").slice(0, 4).show(); //showing 3 hidden div on click
+
+		if($(".box-hidden:hidden").length ==0)
+		{
+			$("#loadMore").fadeOut(); //this will hide
+			//button when length is 0
+		}
+	})
+</script>
 <!--===============================================================================================-->
 	<script src="/site/vendor/daterangepicker/moment.min.js"></script>
 	<script src="/site/vendor/daterangepicker/daterangepicker.js"></script>

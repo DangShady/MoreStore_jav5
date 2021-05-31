@@ -26,7 +26,9 @@
                                                                 <div class="form-icon form-icon-right">
                                                                     <em class="icon ni ni-search"></em>
                                                                 </div>
-                                                                <input type="text" class="form-control" id="default-04" placeholder="Quick search by id">
+                                                                <!-- <form th:action="@{/admin/product}">
+                                                                	<input type="text" class="form-control" id="default-04" name="keyword" th:value="${keyword}" onchange="this.form.submit()" placeholder="Tìm kiếm">
+                                                                </form> -->
                                                             </div>
                                                         </li>
                                                         <li>
@@ -142,15 +144,31 @@
                                             <div class="nk-block-between-md g-3">
                                                 <div class="g">
                                                     <ul class="pagination justify-content-center justify-content-md-start">
-                                                        <li class="page-item"><a class="page-link" href="#"><em class="icon ni ni-chevrons-left"></em></a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                        <li class="page-item"><span class="page-link"><em class="icon ni ni-more-h"></em></span></li>
-                                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#"><em class="icon ni ni-chevrons-right"></em></a></li>
-                                                    </ul><!-- .pagination -->
+                                                        <li  class="page-item" >
+                                                        	<a class="page-link" th:if="${currentPage > 1}" th:href="@{'/admin/product/page/' + ${currentPage -1}}">
+                                                        		<em class="icon ni ni-chevrons-left"></em>
+                                                       		</a>
+                                                       		<a class="page-link" th:unless="${currentPage > 1}" hidden="hidden">
+                                                        		<em class="icon ni ni-chevrons-left"></em>
+                                                       		</a>
+                                                        </li>
+                                                        
+                                                        <li class="page-item"  th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                                        	<a class="page-link" th:href="@{'/admin/product/page/' + ${i}}">[[${i}]]</a>
+                                                        	
+                                                        </li>
+                                               
+                                                        <li  class="page-item" >
+                                                        	<a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/product/page/' + ${currentPage +1}}">
+                                                        		<em class="icon ni ni-chevrons-right"></em>
+                                                       		</a>
+                                                       		<a class="page-link" th:unless="${currentPage < totalPages}" hidden="hidden">
+                                                        		<em class="icon ni ni-chevrons-right"></em>
+                                                       		</a>
+                                                        </li>
+                                                    </ul><!-- .pagination -->  
                                                 </div>
+                                                
                                                 <div class="g">
                                                     <div class="pagination-goto d-flex justify-content-center justify-content-md-start gx-3">
                                                         <div>Page</div>

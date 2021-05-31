@@ -16,9 +16,11 @@ import com.mstore.service.CategoryService;
 @Component
 public class GlobalModelConf implements HandlerInterceptor {
 
+		
 	@Autowired
 	CategoryService cateService;
-
+	
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -44,4 +46,12 @@ public class GlobalModelConf implements HandlerInterceptor {
 		
 
 	}
+	
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
+		// TODO Auto-generated method stub
+		HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
+	}
+	
 }

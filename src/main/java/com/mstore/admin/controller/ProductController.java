@@ -13,6 +13,8 @@ import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -31,6 +33,7 @@ import com.mstore.helps.ConvertString;
 import com.mstore.helps.UploadsFile;
 import com.mstore.repository.CategoryDAO;
 import com.mstore.repository.ProductDAO;
+import com.mstore.service.ProductService;
 
 @Controller
 @RequestMapping("/admin/")
@@ -48,16 +51,37 @@ public class ProductController {
 	@Autowired
 	private CategoryDAO cateDao;
 	
+	@Autowired
+	private ProductService proService;
+	
 	
 	@GetMapping("product")
 	public String products(Model model) {
 		
+		return listProductByPage(1,model);
+	}
+	
+	@GetMapping("product/page/{pageNumber}")
+	public String listProductByPage(@PathVariable("pageNumber") int currentPage,Model model) {
 		
-		model.addAttribute("products", this.proDao.findAll());
+		Page<Product> page = this.proService.listAll(currentPage);
+		
+		long totalItems= page.getTotalElements();
+		
+		int totalPages = page.getTotalPages();
+		
+		
+		List<Product> listProduct = page.getContent();
+		
+		model.addAttribute("currentPage",currentPage);
+		
+		model.addAttribute("totalItems",totalItems);
+		model.addAttribute("totalPages",totalPages);
+		
+		model.addAttribute("products", listProduct);
 		
 		
 		return "admin/product/product";
-		
 	}
 	
 	@ModelAttribute("categorys")

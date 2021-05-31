@@ -2,14 +2,17 @@ package com.mstore.service.Impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.mstore.domain.Category;
 import com.mstore.repository.CategoryDAO;
 import com.mstore.service.CategoryService;
 
-@Component
+@Transactional
+@Repository
 public class CategoryServiceImpl implements CategoryService{
 	
 	@Autowired
