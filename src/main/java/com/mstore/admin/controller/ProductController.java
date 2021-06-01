@@ -8,15 +8,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,13 +61,14 @@ public class ProductController {
 	
 	
 	@GetMapping("product")
-	public String products(Model model) {
+	public String products(Model model) {	
 		
-		return listProductByPage(1,model);
+		return listProductByPage(model,1);
 	}
 	
 	@GetMapping("product/page/{pageNumber}")
-	public String listProductByPage(@PathVariable("pageNumber") int currentPage,Model model) {
+	public String listProductByPage(Model model, @PathVariable("pageNumber") int currentPage) {
+		
 		
 		Page<Product> page = this.proService.listAll(currentPage);
 		
@@ -73,10 +79,11 @@ public class ProductController {
 		
 		List<Product> listProduct = page.getContent();
 		
-		model.addAttribute("currentPage",currentPage);
+		model.addAttribute("currentPage",currentPage);	
 		
 		model.addAttribute("totalItems",totalItems);
 		model.addAttribute("totalPages",totalPages);
+		
 		
 		model.addAttribute("products", listProduct);
 		

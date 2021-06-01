@@ -18,8 +18,10 @@ public interface ProductService {
 	
 	public Product getProductDetailById(int id);
 	
-	public List<Product> getAllProductAdmin(String keyword);
+	public List<Product> getAllProductAdmin(String name);
 	
-	public Page<Product> listAll(int pageNumber);
+	public List<Product> findProductByName(String keyword);
+	
+	public Page<Product> listAll(int pageNumber);	
 	
 }

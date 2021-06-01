@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -48,9 +49,16 @@ public class ProductSiteController {
 	ProductService productService;
 	
 	
-	@GetMapping("test")
-	public String test() {
-		return "site/products/test";
+	@GetMapping("list-product/find-by-name")
+	public String findByName(Model model, @RequestParam("search-product") String keyword) {
+		
+		
+		List<Product> listByName = productService.findProductByName(keyword);
+		
+		
+		model.addAttribute("products",listByName);
+		
+		return "site/products/product";
 	}
 	
 	@GetMapping("list-product/paginated")
@@ -115,6 +123,9 @@ public class ProductSiteController {
 		
 		Product product = productService.getProductDetailById(id);
 		
+		List<Product> listRelatedProduct = productService.getProductByCategory(product.getCategory().getId());
+		
+		model.addAttribute("relatedProduct",listRelatedProduct);
 		model.addAttribute("productDetail",product);
 		
 		return "site/products/product-detail";

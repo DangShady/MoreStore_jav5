@@ -30,6 +30,13 @@ public class ProductServiceImpl implements ProductService{
 	}
 	
 	@Override
+	public List<Product> findProductByName(String keyword) {
+		
+		return productDao.findProductByName(keyword);
+		
+	}
+	
+	@Override
 	public Page<Product> getProductByCategoryPage(int id,Pageable pageable) {
 		return productDao.getListProductByCategoryPage(id,pageable);
 	}
@@ -54,10 +61,13 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public Page<Product> listAll(int pageNumber) {
-		Pageable pageable = PageRequest.of(pageNumber - 1, 6);
+		
+		Pageable pageable = PageRequest.of(pageNumber-1, 8);
 		
 		return productDao.findAll(pageable);
 	}
+
+	
 
 
 }
