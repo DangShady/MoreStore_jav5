@@ -72,6 +72,39 @@ public class ShoppingCartController {
 		return "";
 	}
 	
+	@ResponseBody
+	@RequestMapping("product/update-to-cart/{id}/{quantity}")
+	public String updateToCart(@PathVariable("id") Integer id,@PathVariable("quantity") Integer quantity) {
+		
+		cartService.update(id,quantity);
+		
+		if(quantity == 0) {
+			cartService.remove(id);
+		}
+		
+		System.out.println("Quantity" + quantity);
+		
+		session.setAttribute("amountCart", cartService.getAmount());
+		
+		//session.setAttribute("Cart", cartService.getItems());
+		
+		return "update";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("product/remove-to-cart/{id}")
+	public String removeToCart(@PathVariable("id") Integer id) {
+		
+		cartService.remove(id);
+		
+		session.setAttribute("amountCart", cartService.getAmount());
+		
+		//session.setAttribute("Cart", cartService.getItems());
+		
+		return "remove";
+	}
+	
 	
 	@GetMapping("product/shoping-cart-view")
 	public String viewShoppingCart() {
