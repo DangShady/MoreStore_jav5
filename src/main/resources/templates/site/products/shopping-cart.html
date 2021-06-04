@@ -40,8 +40,8 @@
 									<th class="column-5">Total</th>
 								</tr>
 
-								<tr class="table_row" th:each="view : ${session.Cart}" th:if="${session.Cart != null}">
-									<td class="column-1">
+								<tr class="table_row" data-id="1" th:id="${view.id}" th:each="view : ${session.Cart}" th:if="${session.Cart != null}">
+									<td class="column-1" >
 										<div class="how-itemcart1 btn-remove-to-cart">
 											<img th:src="@{'/images/products/'+${view.name}+'/'+${view.image}}" alt="IMG">
 										</div>
@@ -50,32 +50,35 @@
 									<td class="column-3" th:utext="${#numbers.formatInteger(view.price,3,'POINT')}+đ"></td>
 									<td class="column-4">
 										<div class="wrap-num-product flex-w m-r-20 m-tb-10" >
-										<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-											<i class="fs-16 zmdi zmdi-minus"></i>
+											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-minus"></i>
+											</div>
+		
+												<input class="mtext-104 cl3 txt-center num-product" id="num" type="number" name="num-product" th:value="${view.quantity}">
+		
+											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-plus"></i>
+											</div>	
 										</div>
-
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" th:value="${view.quantity}">
-
-										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-											<i class="fs-16 zmdi zmdi-plus"></i>
-										</div>
-										
-										<input id="idProductViewCart" th:value="${view.id}" hidden="hidden">
-										
-									</div>
 									</td>
 									<td class="column-5" th:utext="${#numbers.formatInteger(view.price*view.quantity,3,'POINT')}+đ">$ 36.00</td>
 								</tr>
+								
+									
+								
 							</table>
+							<span class="flex-c-m stext-101 cl0 size-116 bg3 p-lr-15" th:if="${session.Cart == null}">
+										Chưa có sản phẩm
+							</span>
 						</div>
 
-						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+						<!-- <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
 							
 
 							<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10 btn-update-to-cart">
 								Cập nhập
 							</div>
-						</div>
+						</div> -->
 						
 					</div>
 				</div>

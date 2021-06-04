@@ -1,9 +1,9 @@
 $(document).ready(function() {
 	
-	$(document).on('click', '.btn-update-to-cart', function() {
+	$(document).on('input', 'tr[data-id] input', function() {
 
-		var id = document.querySelector("#idProductViewCart").value;
-		var quantity = document.querySelector(".num-product").value;
+		var id = $(this).closest("tr").attr("id");
+		var quantity = $(this).val();
 
 		$.ajax({
 			url: `/mstore/product/update-to-cart/${id}/${quantity}`,

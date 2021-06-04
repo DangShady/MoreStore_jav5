@@ -16,7 +16,11 @@
 //	
 //	@Override
 //	public void addInterceptors(InterceptorRegistry registry) {
-//		registry.addInterceptor(global).addPathPatterns("/**");
+//		registry.addInterceptor(global).addPathPatterns("/mstore/**");
+//		
+//		registry.addInterceptor(global).addPathPatterns("/images/**");
+//		
+//		registry.addInterceptor(global).addPathPatterns("/site/*");
 //	}
 //	
 //}	

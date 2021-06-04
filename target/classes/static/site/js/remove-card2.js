@@ -1,9 +1,9 @@
 $(document).ready(function() {
 	
 	$(document).on('click', '.btn-remove-to-cart', function() {
-
-		var id = document.querySelector("#idProductViewCart").value;
-
+			
+		var id = $(this).closest("tr").attr("id");
+		
 		$.ajax({
 			url: "/mstore/product/remove-to-cart/" + id,
 			success: function(response) {

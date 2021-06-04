@@ -44,8 +44,12 @@ public class CartService {
 	}
 	
 	public void update(Integer id, int qty) {
-		Product p = map.get(id);
-		p.setQuantity(qty);
+		Collection<Product> ps = this.getItems();
+
+		for(Product p : ps){
+			p = map.get(id);
+			p.setQuantity(qty);
+		};
 	}
 	
 	public void clear() {

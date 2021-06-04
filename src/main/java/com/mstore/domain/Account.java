@@ -22,8 +22,6 @@ public class Account implements Serializable{
 	String fullname;
 	String email;
 	String address;
-	String photo;
-	Boolean activated;
 	Boolean admin;
 	
 	@OneToMany(mappedBy = "account")
