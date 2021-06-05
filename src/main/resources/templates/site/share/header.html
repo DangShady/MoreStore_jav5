@@ -17,16 +17,20 @@
 						<a th:href="@{/mstore/account/login}" th:if="${session.USERINJD == null}" class="flex-c-m trans-04 p-lr-25">
 							My Account
 						</a>
-						<a href="#" th:if="${session.USERINJD != null}" th:text="'Chào '+ ${session.USERINJD.getFullname()}" class="flex-c-m trans-04 p-lr-25">
+						<a th:href="@{/mstore/account/profile}" th:if="${session.USERINJD != null}" th:text="'Chào '+ ${session.USERINJD.getFullname()}" class="flex-c-m trans-04 p-lr-25">
 							Account login
+						</a>
+
+						<a href="#" class="flex-c-m trans-04 p-lr-25">
+							VN
 						</a>
 
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							EN
 						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							USD
+						
+						<a th:href="@{/mstore/account/logoff}" th:if="${session.USERINJD != null}" class="flex-c-m trans-04 p-lr-25">
+							Đăng xuất
 						</a>
 					</div>
 				</div>

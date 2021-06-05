@@ -20,8 +20,10 @@ public class Account implements Serializable{
 	String username;
 	String password;
 	String fullname;
+	String phone;
 	String email;
 	String address;
+	Boolean activated;
 	Boolean admin;
 	
 	@OneToMany(mappedBy = "account")
