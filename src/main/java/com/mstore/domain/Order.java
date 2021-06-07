@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,25 +16,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Orders")
+@Table(name = "orders")
 
-public class Order implements Serializable{
+public class Order{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	
-	@ManyToOne @JoinColumn(name = "Username")
-	Account account;
-	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "OrderDate")
-	Date orderDate = new Date();
+	@DateTimeFormat(pattern="dd/MM/YYYY")
+	Date orderdate;
 	String address;
+	String fullname;
+	String phone;
 	Double amount;
 	Boolean status;
 	String description;
 	
-	@OneToMany(mappedBy = "order")
+	@ManyToOne @JoinColumn(name = "username")
+	Account account;
+	
+	@OneToMany(mappedBy = "order",fetch = FetchType.EAGER)
 	List<OrderDetail> orderDetails;
 }

@@ -12,9 +12,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Accounts")
+@Table(name = "accounts")
 
-public class Account implements Serializable{
+public class Account{
 	
 	@Id
 	String username;
@@ -26,6 +26,6 @@ public class Account implements Serializable{
 	Boolean activated;
 	Boolean admin;
 	
-	@OneToMany(mappedBy = "account")
+	@OneToMany(mappedBy = "account",fetch = FetchType.EAGER)
 	List<Order> orders;
 }

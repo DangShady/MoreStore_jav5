@@ -99,12 +99,24 @@ public class AccountController {
 					cookie.delete("USERINCK");
 					cookie.delete("PASSINCK");
 				}
+				String backUrl = (String) session.getAttribute("back-url");
+				if(backUrl != null) {
+					return "redirect:/mstore/home";
+				}
+				
 				return "redirect:/mstore/";
 			}
 			else {
-				return "admin/index";
-			}
-					
+				
+				String backUrl = (String) session.getAttribute("back-url");
+				if(backUrl != null) {
+					return "redirect:/admin/admin-page";
+				}
+				
+				return "redirect:/admin/admin-page";
+			}			
+			
+			
 		}
 		
 		return "site/accounts/login";

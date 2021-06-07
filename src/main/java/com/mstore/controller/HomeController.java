@@ -15,22 +15,22 @@ import com.mstore.service.CategoryService;
 @Controller
 @RequestMapping("/mstore/")
 public class HomeController {
-	
-	@Autowired
-	CategoryService cateService;
-	
-	@ModelAttribute("shirts")
-	public List<Category> getCategoryShirt(){
-		return cateService.getCategoryToShirt();
-	}
-	@ModelAttribute("pants")
-	public List<Category> getCategoryPant(){
-		return cateService.getCategoryToPant();
-	}
-	@ModelAttribute("accessories")
-	public List<Category> getCategoryAccessories(){
-		return cateService.getCategoryToAccessories();
-	}
+//	
+//	@Autowired
+//	CategoryService cateService;
+//	
+//	@ModelAttribute("shirts")
+//	public List<Category> getCategoryShirt(){
+//		return cateService.getCategoryToShirt();
+//	}
+//	@ModelAttribute("pants")
+//	public List<Category> getCategoryPant(){
+//		return cateService.getCategoryToPant();
+//	}
+//	@ModelAttribute("accessories")
+//	public List<Category> getCategoryAccessories(){
+//		return cateService.getCategoryToAccessories();
+//	}
 	
 	@RequestMapping({"home", "/"})
 	public String homePage() {

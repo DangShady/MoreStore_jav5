@@ -24,24 +24,7 @@ import com.mstore.utils.CookieService;
 @RequestMapping("/mstore/")
 
 public class ShoppingCartController {
-	
-	
-//	Dành riêng cho header
-	@Autowired
-	CategoryService cateService;
-	
-	@ModelAttribute("shirts")
-	public List<Category> getCategoryShirt(){
-		return cateService.getCategoryToShirt();
-	}
-	@ModelAttribute("pants")
-	public List<Category> getCategoryPant(){
-		return cateService.getCategoryToPant();
-	}
-	@ModelAttribute("accessories")
-	public List<Category> getCategoryAccessories(){
-		return cateService.getCategoryToAccessories();
-	}
+
 	
 	
 	
@@ -106,11 +89,5 @@ public class ShoppingCartController {
 	}
 	
 	
-	@GetMapping("product/shoping-cart-view")
-	public String viewShoppingCart() {
-		
-//		session.setAttribute("view-cart", cartService.getItems());
-		
-		return "/site/products/shopping-cart";
-	}
+	
 }

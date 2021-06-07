@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Products")
+@Table(name = "products")
 
-public class Product implements Serializable {
+public class Product{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,12 +31,12 @@ public class Product implements Serializable {
 	@Temporal(TemporalType.DATE)
 	Date productdate;
 
-	@ManyToOne @JoinColumn(name = "Categoryid")
+	@ManyToOne @JoinColumn(name = "categoryid")
 	Category category;
-	
-	@OneToMany(mappedBy = "product")
-	List<OrderDetail> orderDetails;
 	
 	Integer quantity;
 	String description;
+	
+	@OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
+	List<OrderDetail> orderdetails;
 }

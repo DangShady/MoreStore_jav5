@@ -15,14 +15,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Categories")
 
-public class Category implements Serializable{
+public class Category{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	String name;
 	
-	@OneToMany(mappedBy = "category")
+	@OneToMany(mappedBy = "category",fetch = FetchType.EAGER)
 	List<Product> products;
 	
 	

@@ -7,26 +7,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.mstore.domain.Category;
 import com.mstore.service.CategoryService;
 
+@SuppressWarnings("deprecation")
 @Component
-public class GlobalModelConf implements HandlerInterceptor {
+public class GlobalModelConf extends HandlerInterceptorAdapter {
 
 		
 	@Autowired
 	CategoryService cateService;
 	
-	
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return HandlerInterceptor.super.preHandle(request, response, handler);
-	}
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
@@ -38,20 +34,14 @@ public class GlobalModelConf implements HandlerInterceptor {
 
 		List<Category> getCategoryAccessories = cateService.getCategoryToAccessories();
 
-		modelAndView.addObject("shirts", getCategoryShirt);
+		request.setAttribute("shirts", getCategoryShirt);
 
-		modelAndView.addObject("pants", getCategoryPant);
+		request.setAttribute("pants", getCategoryPant);
 
-		modelAndView.addObject("accessories", getCategoryAccessories);
+		request.setAttribute("accessories", getCategoryAccessories);
 		
 
 	}
 	
-	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-			throws Exception {
-		// TODO Auto-generated method stub
-		HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
-	}
 	
 }
