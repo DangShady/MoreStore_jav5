@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
 import com.mstore.domain.Product;
+import com.mstore.repository.ProductDAO;
 import com.mstore.service.ProductService;
 
 
@@ -20,7 +21,7 @@ public class CartService {
 	
 	
 	@Autowired
-	ProductService proService;
+	ProductDAO proDao;
 	
 	Map<Integer, Product> map = new HashMap<>();
 	
@@ -29,7 +30,7 @@ public class CartService {
 		
 		Product p = map.get(id);
 		if(p == null) {
-			p = proService.getProductDetailById(id);
+			p = proDao.getById(id);
 			p.setQuantity(1);
 			
 			map.put(id, p);

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mstore.domain.Category;
 import com.mstore.domain.Product;
+import com.mstore.repository.ProductDAO;
 import com.mstore.service.CategoryService;
 import com.mstore.service.ProductService;
 
@@ -36,6 +37,44 @@ public class ProductSiteController {
 	ProductService productService;
 
 	
+	@Autowired
+	ProductDAO proDao;
+	
+	
+	
+	@GetMapping("product/shirt")
+	public String getAllShirt(Model model) {
+
+		List<Product> listByName = proDao.findAllByProductName("%áo%");
+		
+		model.addAttribute("products",listByName);
+		
+		
+		return "site/products/product";
+	}
+	
+	
+	@GetMapping("product/trousers")
+	public String getAllPants(Model model) {
+
+		List<Product> listByName = proDao.findAllByProductName("%quần%");
+		
+		model.addAttribute("products",listByName);
+		
+		
+		return "site/products/product";
+	}
+	
+	@GetMapping("product/accessories")
+	public String getAllAccessories (Model model) {
+
+		List<Product> listByName = proDao.findAllByAsscess(7);
+		
+		model.addAttribute("products",listByName);
+		
+		
+		return "site/products/product";
+	}
 	
 	@GetMapping("list-product/find-by-name")
 	public String findByName(Model model, @RequestParam("search-product") String keyword) {
@@ -49,48 +88,6 @@ public class ProductSiteController {
 		return "site/products/product";
 	}
 	
-	@GetMapping("list-product/paginated")
-	public String getListProductByCategoryPage(ModelMap model,
-			@RequestParam(name = "id", required = false) int id,
-			@RequestParam("page") Optional<Integer> page			
-			) {
-		
-		int currentPage = page.orElse(1);
-		
-		int pageSize = 4;
-		
-		Pageable pageable = PageRequest.of(currentPage, pageSize);
-		
-		Page<Product> resultPage = null;
-		
-		
-		resultPage = productService.getProductByCategoryPage(id, pageable);
-		
-		int totalPages = resultPage.getTotalPages();
-		
-		if(totalPages > 0) {
-			int start = Math.max(1, currentPage - 2);
-			int end = Math.min(currentPage + 2, totalPages);
-			
-			if(totalPages > 5) {
-				if(end == totalPages) start = end-5;
-				else if(start == 1) end = start +5;
-			}
-			
-			List<Integer> pageNumbers = IntStream.rangeClosed(start, end)
-					.boxed().collect(Collectors.toList());
-			
-			model.addAttribute("pageNumbers",pageNumbers);
-		}
-		
-		
-		model.addAttribute("productPage",resultPage);
-		
-//		model.addAttribute("products",products);
-		
-		return "site/products/product";
-		
-	}
 	
 	@GetMapping("list-product/product/{id}")
 	public String getListProductByCategory(@PathVariable("id") int id,Model model) {

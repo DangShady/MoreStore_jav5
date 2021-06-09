@@ -63,12 +63,12 @@
                                                     <label class="custom-control-label" for="uid"></label>
                                                 </div>
                                             </div>
-                                            <div class="nk-tb-col"><span>Order</span></div>
-                                            <div class="nk-tb-col tb-col-md"><span>Date</span></div>
-                                            <div class="nk-tb-col"><span class="d-none d-mb-block">Status</span></div>
-                                            <div class="nk-tb-col tb-col-sm"><span>Customer</span></div>
-                                            <div class="nk-tb-col tb-col-md"><span>Purchased</span></div>
-                                            <div class="nk-tb-col"><span>Total</span></div>
+                                            <div class="nk-tb-col"><span>Mã đơn hàng</span></div>
+                                            <div class="nk-tb-col tb-col-md"><span>Ngày đặt hàng</span></div>
+                                            <div class="nk-tb-col"><span class="d-none d-mb-block">Trạng thái</span></div>
+                                            <div class="nk-tb-col tb-col-sm"><span>Khách hàng</span></div>
+                                            <div class="nk-tb-col tb-col-md"><span>Địa chỉ</span></div>
+                                            <div class="nk-tb-col"><span>Tổng tiền</span></div>
                                             <div class="nk-tb-col nk-tb-col-tools">
                                                 <ul class="nk-tb-actions gx-1 my-n1">
                                                     <li>
@@ -116,13 +116,13 @@
                                                 <span class="tb-sub text-primary" th:utext="${order.address}">3 Items</span>
                                             </div>
                                             <div class="nk-tb-col">
-                                                <span class="tb-lead" th:utext="${order.amount}">$ 249.75</span>
+                                                <span class="tb-lead" th:utext="${#numbers.formatInteger(order.amount,3,'POINT')}+đ">$ 249.75</span>
                                             </div>
                                             <div class="nk-tb-col nk-tb-col-tools">
                                                 <ul class="nk-tb-actions gx-1">
                                                    
                                                     <li class="nk-tb-action-hidden">
-                                                        <a href="order-detail" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Xem chi tiết">
+                                                        <a th:href="@{/admin/order/detail-order/{id}(id=${order.id})}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Xem chi tiết">
                                                             <em class="icon ni ni-eye"></em>
                                                         </a>
                                                     </li>
@@ -134,7 +134,7 @@
                                                                 	<li th:if="${order.status == false}"><a th:href="@{/admin/order/confirm-order/{id}(id=${order.id})}"><em class="icon ni ni-edit"></em><span>Xác nhận đơn hàng</span></a></li>
                                                                     <li><a th:href="@{/admin/order/detail-order/{id}(id=${order.id})}"><em class="icon ni ni-eye"></em><span>Chi tiết đơn hàng</span></a></li>
                                                                     
-                                                                    <li><a href="#"><em class="icon ni ni-trash"></em><span>Xóa đơn hàng</span></a></li>
+                                                                    <li th:if="${order.status == false}"><a th:href="@{/admin/order/delete-order/{id}(id=${order.id})}"><em class="icon ni ni-trash"></em><span>Xóa đơn hàng</span></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -149,14 +149,29 @@
                                             <div class="nk-block-between-md g-3">
                                                 <div class="g">
                                                     <ul class="pagination justify-content-center justify-content-md-start">
-                                                        <li class="page-item"><a class="page-link" href="#"><em class="icon ni ni-chevrons-left"></em></a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                        <li class="page-item"><span class="page-link"><em class="icon ni ni-more-h"></em></span></li>
-                                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#"><em class="icon ni ni-chevrons-right"></em></a></li>
-                                                    </ul><!-- .pagination -->
+                                                        <li  class="page-item" >
+                                                        	<a class="page-link" th:if="${currentPage > 1}" th:href="@{'/admin/order/page/' + ${currentPage -1}}">
+                                                        		<em class="icon ni ni-chevrons-left"></em>
+                                                       		</a>
+                                                       		<a class="page-link" th:unless="${currentPage > 1}" hidden="hidden">
+                                                        		<em class="icon ni ni-chevrons-left"></em>
+                                                       		</a>
+                                                        </li>
+                                                        
+                                                        <li class="page-item"  th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                                        	<a class="page-link" th:href="@{'/admin/order/page/' + ${i}}">[[${i}]]</a>
+                                                        	
+                                                        </li>
+                                               
+                                                        <li  class="page-item" >
+                                                        	<a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/order/page/' + ${currentPage +1}}">
+                                                        		<em class="icon ni ni-chevrons-right"></em>
+                                                       		</a>
+                                                       		<a class="page-link" th:unless="${currentPage < totalPages}" hidden="hidden">
+                                                        		<em class="icon ni ni-chevrons-right"></em>
+                                                       		</a>
+                                                        </li>
+                                                    </ul><!-- .pagination -->  
                                                 </div>
                                                 <div class="g">
                                                     <div class="pagination-goto d-flex justify-content-center justify-content-md-start gx-3">

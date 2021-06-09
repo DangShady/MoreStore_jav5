@@ -14,7 +14,6 @@ import com.mstore.domain.Product;
 import com.mstore.repository.ProductDAO;
 import com.mstore.service.ProductService;
 
-@Transactional
 @Repository
 public class ProductServiceImpl implements ProductService{
 

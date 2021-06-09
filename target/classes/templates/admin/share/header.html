@@ -24,8 +24,8 @@
                                                     <em class="icon ni ni-user-alt"></em>
                                                 </div>
                                                 <div class="user-info d-none d-xl-block">
-                                                    <div class="user-status user-status-active">Administator</div>
-                                                    <div class="user-name dropdown-indicator">Abu Bin Ishityak</div>
+                                                    <div class="user-status user-status-active" >Quản trị viên</div>
+                                                    <div class="user-name dropdown-indicator" th:text="${session.ADMININJD.getFullname()}">Abu Bin Ishityak</div>
                                                 </div>
                                             </div>
                                         </a>
@@ -33,11 +33,11 @@
                                             <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                                 <div class="user-card">
                                                     <div class="user-avatar">
-                                                        <span>AB</span>
+                                                        <span>AD</span>
                                                     </div>
                                                     <div class="user-info">
-                                                        <span class="lead-text">Abu Bin Ishtiyak</span>
-                                                        <span class="sub-text">info@softnio.com</span>
+                                                        <span class="lead-text" th:text="${session.ADMININJD.getFullname()}">Abu Bin Ishtiyak</span>
+                                                        <span class="sub-text" th:text="${session.ADMININJD.getFullname()}">info@softnio.com</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -51,7 +51,7 @@
                                             </div>
                                             <div class="dropdown-inner">
                                                 <ul class="link-list">
-                                                    <li><a href="#"><em class="icon ni ni-signout"></em><span>Sign out</span></a></li>
+                                                    <li><a th:href="@{/admin/logoff}"><em class="icon ni ni-signout"></em><span>Sign out</span></a></li>
                                                 </ul>
                                             </div>
                                         </div>

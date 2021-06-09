@@ -1,9 +1,12 @@
 package com.mstore.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.*;
 
@@ -23,6 +26,9 @@ public class Account{
 	String phone;
 	String email;
 	String address;
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="dd/MM/YYYY")
+	Date dateregister;
 	Boolean activated;
 	Boolean admin;
 	

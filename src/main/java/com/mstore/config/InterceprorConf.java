@@ -17,13 +17,18 @@ public class InterceprorConf implements WebMvcConfigurer{
 	@Autowired
 	AuthorizeInterceptor auth;
 	
+	@Autowired
+	AuthorizeAdminInterceptor authAdmin;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		
 		registry.addInterceptor(global).addPathPatterns("/mstore/**");
 		
-		registry.addInterceptor(auth).addPathPatterns("/mstore/account/profile","/admin/admin-page",
+		registry.addInterceptor(auth).addPathPatterns("/mstore/account/profile",
 				"/mstore/account/logoff","/mstore/order-cart/**");
+		
+		registry.addInterceptor(authAdmin).addPathPatterns("/admin/admin-page");
 	}
 	
 }	

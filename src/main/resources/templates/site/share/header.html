@@ -51,7 +51,7 @@
 								<a href="index.html">Trang chủ</a>
 							</li>
 							<li class="active-menu">
-								<a href="index.html">Áo</a>
+								<a th:href="@{/mstore/product/shirt}">Áo</a>
 								<ul class="sub-menu" >
 									<li th:each="shirt : ${shirts}">
 									<a th:href="@{/mstore/list-product/product/{id}(id=${shirt.id})}" th:utext="${shirt.name}" th:value="${shirt.id}"></a>
@@ -61,7 +61,7 @@
 							</li>
 
 							<li class="">
-								<a href="index.html">Quần</a>
+								<a th:href="@{/mstore/product/trousers}">Quần</a>
 								<ul class="sub-menu">
 									<li th:each="pant : ${pants}">
 									<a th:href="@{/mstore/list-product/product/{id}(id=${pant.id})}" th:utext="${pant.name}" th:value="${pant.id}"></a>
@@ -70,7 +70,7 @@
 								</ul>
 							</li>
 							<li class="">
-								<a href="index.html">Phụ kiện</a>
+								<a th:href="@{/mstore/product/accessories}">Phụ kiện</a>
 								<ul class="sub-menu">
 									<li th:each="accessori: ${accessories}">
 									<a th:href="@{/mstore/list-product/product/{id}(id=${accessori.id})}" th:utext="${accessori.name}" th:value="${accessori.id}"></a>
@@ -78,16 +78,16 @@
 									
 								</ul>
 							</li>
-							<li>
+							<!-- <li>
 								<a href="blog.html">Blog</a>
+							</li> -->
+
+							<li>
+								<a th:href="@{/mstore/about}" class="js-header-click">Kiến thức</a>
 							</li>
 
 							<li>
-								<a href="about" class="js-header-click">Kiến thức</a>
-							</li>
-
-							<li>
-								<a href="contact">Liên hệ</a>
+								<a th:href="@{/mstore/contact}" >Liên hệ</a>
 							</li>
 						</ul>
 					</div>	

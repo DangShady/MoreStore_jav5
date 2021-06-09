@@ -4,29 +4,29 @@
 		layout:decorator="/admin/layout-admin">
 <head>
 <meta charset="UTF-8">
-<title>Orders</title>
+<title>Customer</title>
 </head>
 <body>
-	<div class="nk-content " layout:fragment="content">
+	<div class="nk-content" layout:fragment="content">
                     <div class="container-fluid">
                         <div class="nk-content-inner">
                             <div class="nk-content-body">
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title">Orders</h3>
+                                            <h3 class="nk-block-title page-title">Customers</h3>
                                         </div><!-- .nk-block-head-content -->
                                         <div class="nk-block-head-content">
                                             <div class="toggle-wrap nk-block-tools-toggle">
-                                                <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
-                                                <div class="toggle-expand-content" data-content="pageMenu">
+                                                <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="more-options"><em class="icon ni ni-more-v"></em></a>
+                                                <div class="toggle-expand-content" data-content="more-options">
                                                     <ul class="nk-block-tools g-3">
                                                         <li>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right">
                                                                     <em class="icon ni ni-search"></em>
                                                                 </div>
-                                                                <input type="text" class="form-control" id="default-04" placeholder="Quick search by id">
+                                                                <input type="text" class="form-control" id="default-04" placeholder="Search by name">
                                                             </div>
                                                         </li>
                                                         <li>
@@ -34,28 +34,25 @@
                                                                 <a href="#" class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white" data-toggle="dropdown">Status</a>
                                                                 <div class="dropdown-menu dropdown-menu-right">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a href="#"><span>On Hold</span></a></li>
-                                                                        <li><a href="#"><span>Delevired</span></a></li>
-                                                                        <li><a href="#"><span>Rejected</span></a></li>
+                                                                        <li><a href="#"><span>Actived</span></a></li>
+                                                                        <li><a href="#"><span>Inactived</span></a></li>
+                                                                        <li><a href="#"><span>Blocked</span></a></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
                                                         </li>
                                                         <li class="nk-block-tools-opt">
                                                             <a href="#" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
-                                                            <a href="#" class="btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Thêm Order</span></a>
-                                                            
+                                                            <a href="add-customer" class="btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Thêm người dùng</span></a>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                
                                             </div>
-                                            
                                         </div><!-- .nk-block-head-content -->
                                     </div><!-- .nk-block-between -->
                                 </div><!-- .nk-block-head -->
                                 <div class="nk-block">
-                                    <div class="nk-tb-list is-separate is-medium mb-3">
+                                    <div class="nk-tb-list is-separate mb-3">
                                         <div class="nk-tb-item nk-tb-head">
                                             <div class="nk-tb-col nk-tb-col-check">
                                                 <div class="custom-control custom-control-sm custom-checkbox notext">
@@ -63,12 +60,12 @@
                                                     <label class="custom-control-label" for="uid"></label>
                                                 </div>
                                             </div>
-                                            <div class="nk-tb-col"><span>Mã đơn hàng</span></div>
-                                            <div class="nk-tb-col tb-col-md"><span>Ngày đặt hàng</span></div>
-                                            <div class="nk-tb-col"><span class="d-none d-mb-block">Trạng thái</span></div>
-                                            <div class="nk-tb-col tb-col-sm"><span>Khách hàng</span></div>
-                                            <div class="nk-tb-col tb-col-md"><span>Địa chỉ</span></div>
-                                            <div class="nk-tb-col"><span>Tổng tiền</span></div>
+                                            <div class="nk-tb-col"><span class="sub-text">Tên khách hàng</span></div>
+                                            <div class="nk-tb-col tb-col-mb"><span class="sub-text">Ordered</span></div>
+                                            <div class="nk-tb-col tb-col-md"><span class="sub-text">Số điện thoại</span></div>
+                                            <div class="nk-tb-col tb-col-lg"><span class="sub-text">Địa chỉ</span></div>
+                                            <div class="nk-tb-col tb-col-lg"><span class="sub-text">Ngày đăng kí</span></div>
+                                            <div class="nk-tb-col tb-col-md"><span class="sub-text">Trạng thái</span></div>
                                             <div class="nk-tb-col nk-tb-col-tools">
                                                 <ul class="nk-tb-actions gx-1 my-n1">
                                                     <li>
@@ -76,11 +73,10 @@
                                                             <a href="#" class="dropdown-toggle btn btn-icon btn-trigger mr-n1" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
-                                                                    <li><a href="#"><em class="icon ni ni-edit"></em><span>Update Status</span></a></li>
-                                                                    <li><a href="#"><em class="icon ni ni-truck"></em><span>Mark as Delivered</span></a></li>
-                                                                    <li><a href="#"><em class="icon ni ni-money"></em><span>Mark as Paid</span></a></li>
-                                                                    <li><a href="#"><em class="icon ni ni-report-profit"></em><span>Send Invoice</span></a></li>
-                                                                    <li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Orders</span></a></li>
+                                                                    <li><a href="#"><em class="icon ni ni-mail"></em><span>Send Email to All</span></a></li>
+                                                                    <li><a href="#"><em class="icon ni ni-na"></em><span>Suspend Selected</span></a></li>
+                                                                    <li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Seleted</span></a></li>
+                                                                    <li><a href="#"><em class="icon ni ni-shield-star"></em><span>Reset Password</span></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -88,7 +84,7 @@
                                                 </ul>
                                             </div>
                                         </div><!-- .nk-tb-item -->
-                                        <div class="nk-tb-item" th:each="order : ${orders}">
+                                        <div class="nk-tb-item" th:each="customer : ${customers}">
                                             <div class="nk-tb-col nk-tb-col-check">
                                                 <div class="custom-control custom-control-sm custom-checkbox notext">
                                                     <input type="checkbox" class="custom-control-input" id="uid1">
@@ -96,82 +92,80 @@
                                                 </div>
                                             </div>
                                             <div class="nk-tb-col">
-                                                <span class="tb-lead"><a href="#" th:utext="'#'+${order.id}">#95954</a></span>
+                                                <a href="html/ecommerce/customer-details.html">
+                                                    <div class="user-card">
+                                                        <div class="user-avatar bg-primary">
+                                                            <span th:utext="${customer.username}"></span>
+                                                        </div>
+                                                        <div class="user-info">
+                                                            <span class="tb-lead" th:utext="${customer.fullname}">Abu Bin Ishtiyak <span class="dot dot-success d-md-none ml-1"></span></span>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </a>
                                             </div>
+                                            <div class="nk-tb-col tb-col-mb">
+                                                <span th:utext="${customer.email}">info@softnio.com</span>
+                                            </div>
+                                           
                                             <div class="nk-tb-col tb-col-md">
-                                                <span class="tb-sub" th:utext="${order.orderdate}">Jun 4, 2020</span>
+                                                <span th:text="${customer.phone}">+811 847-4958</span>
                                             </div>
-                                            <div class="nk-tb-col" th:if="${order.status == false}">
-                                                <span class="dot bg-warning d-mb-none"></span>
-                                                <span class="badge badge-sm badge-dot has-bg badge-warning d-none d-mb-inline-flex">Chờ xác nhận</span>
+                                            <div class="nk-tb-col tb-col-lg">
+                                                <span th:text="${customer.address}">United State</span>
                                             </div>
-                                            <div class="nk-tb-col" th:if="${order.status == true}">
-                                                <span class="dot bg-success d-mb-none"></span>
-                                                <span class="badge badge-sm badge-dot has-bg badge-success d-none d-mb-inline-flex">Đã xác nhận</span>
+                                            <div class="nk-tb-col tb-col-lg">
+                                                <span th:text="${customer.dateregister}">10 Feb 2020</span>
                                             </div>
-                                            <div class="nk-tb-col tb-col-sm">
-                                                <span class="tb-sub" th:text="${order.fullname}">Arnold Armstrong</span>
+                                            <div class="nk-tb-col tb-col-md" th:if="${customer.activated == true}">
+                                                <span class="tb-status text-success">Đã kích hoạt</span>
                                             </div>
-                                            <div class="nk-tb-col tb-col-md">
-                                                <span class="tb-sub text-primary" th:utext="${order.address}">3 Items</span>
-                                            </div>
-                                            <div class="nk-tb-col">
-                                                <span class="tb-lead" th:utext="${#numbers.formatInteger(order.amount,3,'POINT')}+đ">$ 249.75</span>
+                                            <div class="nk-tb-col tb-col-md" th:unless="${customer.activated == true}">
+                                                <span class="tb-status text-danger">Chưa kích hoạt</span>
                                             </div>
                                             <div class="nk-tb-col nk-tb-col-tools">
                                                 <ul class="nk-tb-actions gx-1">
-                                                   
                                                     <li class="nk-tb-action-hidden">
-                                                        <a th:href="@{/admin/order/detail-order/{id}(id=${order.id})}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Xem chi tiết">
-                                                            <em class="icon ni ni-eye"></em>
+                                                        <a href="#" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Gửi mail">
+                                                            <em class="icon ni ni-mail-fill"></em>
                                                         </a>
                                                     </li>
-                                                    
-                                                        <div class="drodown mr-n1">
+                                                    <li class="nk-tb-action-hidden">
+                                                        <a href="#" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Xóa người dùng">
+                                                            <em class="icon ni ni-user-cross-fill"></em>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <div class="drodown">
                                                             <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
-                                                                	<li th:if="${order.status == false}"><a th:href="@{/admin/order/confirm-order/{id}(id=${order.id})}"><em class="icon ni ni-edit"></em><span>Xác nhận đơn hàng</span></a></li>
-                                                                    <li><a th:href="@{/admin/order/detail-order/{id}(id=${order.id})}"><em class="icon ni ni-eye"></em><span>Chi tiết đơn hàng</span></a></li>
-                                                                    
-                                                                    <li th:if="${order.status == false}"><a th:href="@{/admin/order/delete-order/{id}(id=${order.id})}"><em class="icon ni ni-trash"></em><span>Xóa đơn hàng</span></a></li>
+                                                                    <li><a href="customer-detail"><em class="icon ni ni-eye"></em><span>Xem chi tiết</span></a></li>
+                                                                    <li><a href="add-order"><em class="icon ni ni-repeat"></em><span>Tạo order mới</span></a></li>
+                                                                    <li><a href="#"><em class="icon ni ni-na"></em><span>Xóa người dùng</span></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div><!-- .nk-tb-item -->
-                              
+                                        
+                   
                                     </div><!-- .nk-tb-list -->
                                     <div class="card">
                                         <div class="card-inner">
                                             <div class="nk-block-between-md g-3">
                                                 <div class="g">
                                                     <ul class="pagination justify-content-center justify-content-md-start">
-                                                        <li  class="page-item" >
-                                                        	<a class="page-link" th:if="${currentPage > 1}" th:href="@{'/admin/order/page/' + ${currentPage -1}}">
-                                                        		<em class="icon ni ni-chevrons-left"></em>
-                                                       		</a>
-                                                       		<a class="page-link" th:unless="${currentPage > 1}" hidden="hidden">
-                                                        		<em class="icon ni ni-chevrons-left"></em>
-                                                       		</a>
-                                                        </li>
-                                                        
-                                                        <li class="page-item"  th:each="i: ${#numbers.sequence(1, totalPages)}">
-                                                        	<a class="page-link" th:href="@{'/admin/order/page/' + ${i}}">[[${i}]]</a>
-                                                        	
-                                                        </li>
-                                               
-                                                        <li  class="page-item" >
-                                                        	<a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/order/page/' + ${currentPage +1}}">
-                                                        		<em class="icon ni ni-chevrons-right"></em>
-                                                       		</a>
-                                                       		<a class="page-link" th:unless="${currentPage < totalPages}" hidden="hidden">
-                                                        		<em class="icon ni ni-chevrons-right"></em>
-                                                       		</a>
-                                                        </li>
-                                                    </ul><!-- .pagination -->  
+                                                        <li class="page-item"><a class="page-link" href="#"><em class="icon ni ni-chevrons-left"></em></a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                        <li class="page-item"><span class="page-link"><em class="icon ni ni-more-h"></em></span></li>
+                                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">7</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#"><em class="icon ni ni-chevrons-right"></em></a></li>
+                                                    </ul><!-- .pagination -->
                                                 </div>
                                                 <div class="g">
                                                     <div class="pagination-goto d-flex justify-content-center justify-content-md-start gx-3">

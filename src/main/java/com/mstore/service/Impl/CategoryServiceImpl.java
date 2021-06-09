@@ -11,7 +11,6 @@ import com.mstore.domain.Category;
 import com.mstore.repository.CategoryDAO;
 import com.mstore.service.CategoryService;
 
-@Transactional
 @Repository
 public class CategoryServiceImpl implements CategoryService{
 	

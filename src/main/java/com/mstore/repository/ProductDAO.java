@@ -30,4 +30,11 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
 	@Query("SELECT p FROM Product p WHERE "
 			+ "CONCAT(p.name, p.category.name) LIKE %?1%")
 	public List<Product> findAllProductAdmin(String keyword);
+	
+	@Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
+	public List<Product> findAllByProductName(String productName);
+	
+	@Query("SELECT p FROM Product p WHERE p.category.id =?1")
+	public List<Product> findAllByAsscess(Integer id);
+	
 }

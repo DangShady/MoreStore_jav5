@@ -1,5 +1,8 @@
 package com.mstore.admin.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -7,10 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin/")
 public class AdminPageController {
 
+	@Autowired 
+	HttpSession session;
+	
+	
 	@RequestMapping({"admin-page","dashboard"})
 	public String adminPage() {
 		
 		return "admin/index";
+	}
+	
+	@RequestMapping("logoff")
+	public String logOffAdmin() {
+		session.removeAttribute("ADMININJD");
+		
+		return "redirect:/mstore/home";
 	}
 	
 //	@RequestMapping("order")
@@ -20,11 +34,7 @@ public class AdminPageController {
 //	}
 	
 	
-	@RequestMapping("customer")
-	public String customer() {
-		
-		return "admin/customer";
-	}
+	
 	
 	@RequestMapping("setting")
 	public String setting() {

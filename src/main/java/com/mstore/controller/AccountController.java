@@ -1,5 +1,7 @@
 package com.mstore.controller;
 
+import java.util.Date;
+
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -85,12 +87,11 @@ public class AccountController {
 		else if(user.getActivated() == false) {
 			model.addAttribute("message","Đăng nhập thất bại: Tài khoản của bạn chưa được kích hoạt");
 		}
-		else {
-			
-			session.setAttribute("USERINJD", user);
-			
+		else {		
 			//Ghi nhớ bằng cookie
+			
 			if(user.getAdmin() == false) {
+				session.setAttribute("USERINJD", user);
 				if(rm == true) {
 					cookie.create("USERINCK", user.getUsername(), 30);
 					cookie.create("PASSINCK", user.getPassword(), 30);
@@ -107,8 +108,9 @@ public class AccountController {
 				return "redirect:/mstore/";
 			}
 			else {
+				session.setAttribute("ADMININJD", user);
 				
-				String backUrl = (String) session.getAttribute("back-url");
+				String backUrl = (String) session.getAttribute("back-url-admin");
 				if(backUrl != null) {
 					return "redirect:/admin/admin-page";
 				}
@@ -131,6 +133,8 @@ public class AccountController {
 		return "redirect:/mstore/home";
 	}
 	
+	
+	
 	// Đăng kí
 	@GetMapping("thank")
 	public String thank() {
@@ -150,6 +154,7 @@ public class AccountController {
 			return "site/accounts/register";
 		}
 		
+		account.setDateregister(new Date());
 		account.setAdmin(false);
 		account.setActivated(false);
 		

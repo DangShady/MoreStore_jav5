@@ -11,8 +11,11 @@ import com.mstore.domain.OrderDetail;
 
 @Repository
 public interface OrderDetailDAO extends JpaRepository<OrderDetail, Integer>{
-
-	@Query("SELECT d FROM OrderDetail d WHERE d.order = ?1")
-	public List<OrderDetail> getDetailById(Integer orderId);
+	
+	public List<OrderDetail> findByOrder(Order order);
+	
+//	@Query("DELETE d FROM OrderDetail d WHERE d.order.id =?1")
+//	public void deleteByOrder(Integer orderId);
+	
 	
 }

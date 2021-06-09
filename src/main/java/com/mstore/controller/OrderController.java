@@ -21,6 +21,7 @@ import com.mstore.domain.Account;
 import com.mstore.domain.Order;
 import com.mstore.domain.OrderDetail;
 import com.mstore.domain.Product;
+import com.mstore.repository.ProductDAO;
 import com.mstore.service.OrderService;
 import com.mstore.utils.CartService;
 
@@ -35,6 +36,9 @@ public class OrderController {
 	CartService cart;
 	
 	@Autowired
+	ProductDAO proDao;
+	
+	@Autowired
 	OrderService orderService;
 	
 	
@@ -47,8 +51,6 @@ public class OrderController {
 	
 	@GetMapping("product/shoping-cart-view")
 	public String viewShoppingCart(Order order) {
-		
-		
 		
 		return "/site/products/shopping-cart";
 	}
@@ -77,11 +79,17 @@ public class OrderController {
 			detail.setProduct(product);
 			detail.setPrice(product.getPrice());
 			detail.setQuantity(product.getQuantity());
-			
 			details.add(detail);
+			
+			Product pr = proDao.getById(product.getId());
+			
+			pr.setQuantity(pr.getQuantity() - product.getQuantity());
+			
+			proDao.save(pr);
 		}
 		orderService.create(order,details);
-		cart.clear();
+		
+		cart.clear();	
 		session.setAttribute("amountCart", cart.getAmount());
 		return "redirect:/mstore/thank-you-and-wellcome-back";
 	}
