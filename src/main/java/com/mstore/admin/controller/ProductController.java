@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mstore.domain.Account;
 import com.mstore.domain.Category;
 import com.mstore.domain.Product;
 import com.mstore.helps.ConvertString;
@@ -46,140 +47,128 @@ public class ProductController {
 
 	@Autowired
 	ServletContext app;
-	
+
 	@Autowired(required = false)
 	ConvertString convert;
-	
+
 	@Autowired
-	private ProductDAO proDao;
-	
+	ProductDAO proDao;
+
 	@Autowired
 	private CategoryDAO cateDao;
-	
+
 	@Autowired
 	private ProductService proService;
-	
-	
+
 	@GetMapping("product")
-	public String products(Model model) {	
-		
-		return listProductByPage(model,1);
+	public String products(Model model) {
+
+		return listProductByPage(model, 1);
 	}
-	
+
 	@GetMapping("product/page/{pageNumber}")
 	public String listProductByPage(Model model, @PathVariable("pageNumber") int currentPage) {
-		
-		
+
 		Page<Product> page = this.proService.listAll(currentPage);
-		
-		long totalItems= page.getTotalElements();
-		
+
+		long totalItems = page.getTotalElements();
+
 		int totalPages = page.getTotalPages();
-		
-		
+
 		List<Product> listProduct = page.getContent();
-		
-		model.addAttribute("currentPage",currentPage);	
-		
-		model.addAttribute("totalItems",totalItems);
-		model.addAttribute("totalPages",totalPages);
-		
-		
+
+		model.addAttribute("currentPage", currentPage);
+
+		model.addAttribute("totalItems", totalItems);
+		model.addAttribute("totalPages", totalPages);
+
 		model.addAttribute("products", listProduct);
-		
-		
+
 		return "admin/product/product";
 	}
-	
+
 	@ModelAttribute("categorys")
-	public List<Category> getCategory(){
+	public List<Category> getCategory() {
 		return cateDao.findAll();
 	}
-	
+
 	@GetMapping("form-product")
-	public String formAddProduct(Product product,Model model) {
-		
+	public String formAddProduct(Product product, Model model) {
+
 		return "admin/product/add-product";
 	}
-	
+
 	@PostMapping("add-product")
-	public String addCategory(@Valid Product product,BindingResult result,@RequestParam("file_product") MultipartFile file,
-			Model model) throws IllegalStateException, IOException{
-		
-		if(result.hasErrors()) {
+	public String addCategory(@Valid Product product, BindingResult result,
+			@RequestParam("file_product") MultipartFile file, Model model) throws IllegalStateException, IOException {
+
+		if (result.hasErrors()) {
 			return "admin/product/update-product";
 		}
-		
-		if(file.isEmpty()) {
-			product.setImage("no-product.png");
-			
-		}
-		else {
-		
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		
-		product.setImage(fileName);
 
-		String uploadDir = "./src/main//resources/static/images/products/" + product.getName();
-		
-		UploadsFile.uploadImage(file, uploadDir, fileName);
-		}	
-		
+		if (file.isEmpty()) {
+			product.setImage("no-product.png");
+
+		} else {
+
+			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+			product.setImage(fileName);
+			
+
+			String uploadDir = "./src/main//resources/static/images/products/" + product.getName();
+
+			UploadsFile.uploadImage(file, uploadDir, fileName);
+		}
+
 		this.proDao.save(product);
-		
+
 		return "redirect:product";
 	}
-	
+
 	@GetMapping("edit-product/{id}")
-	public String editProduct(@PathVariable("id") int id,Model model) {
-		Product product = proDao.findById(id).
-				orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));;
+	public String editProduct(@PathVariable("id") int id, Model model) {
+		Product product = proDao.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+		;
 		model.addAttribute("product", product);
+		
+		System.out.println("Image" + product.getImage() + product.getId() + product.getCategory().getId());
+		
 		
 		return "admin/product/update-product";
 	}
-	
-	@PostMapping("update-product/{id}")
-	public String updateCategory(@PathVariable("id") int id,@Valid Product product,BindingResult result,@RequestParam("file_product") MultipartFile file,
-			Model model) throws IllegalStateException, IOException{
+
+	@PostMapping("update-product-admin/{idproduct}")
+	public String updateProduct(@PathVariable("idproduct") int id, @Valid Product product, BindingResult result,
+			@RequestParam("file_update") MultipartFile file, Model model) throws IllegalStateException, IOException {
 		
-		if(result.hasErrors()) {
-			product.setId(id);
+		if (result.hasErrors()) {
 			return "admin/product/update-product";
 		}
 		
-		if(file.isEmpty()) {
-			product.setImage(product.getImage());
-			
-		}
-		else {
-		
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		
-		product.setImage(fileName);
+		if (!file.isEmpty()) {
 
-		String uploadDir = "./src/main//resources/static/images/products/" + product.getName();
+			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+			
+			product.setImage(fileName);
+
+			String uploadDir = "./src/main//resources/static/images/products/" + product.getName();
+
 		
-		UploadsFile.uploadImage(file, uploadDir, fileName);
-		}	
-		
-		this.proDao.save(product);
-		
-		System.out.println("Filename" + file.getOriginalFilename());
-		model.addAttribute("products",this.proDao.findAll());
-		
-		return "admin/product/product";
+			UploadsFile.uploadImage(file, uploadDir, fileName);
+		}
+
+		proDao.save(product);
+		return "redirect:/admin/product";
 	}
-	
+
 	@GetMapping("delete-product/{id}")
 	public String deleteUser(@PathVariable("id") int id, Model model) {
-	    Product product = proDao.findById(id)
-	      .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-	    
-	    this.proDao.delete(product);
-	    
-	    model.addAttribute("products", this.proDao.findAll());
-	    
-	    return "admin/product/product";
+		Product product = proDao.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+
+		this.proDao.delete(product);
+
+
+		return "redirect:/admin/product";
 	}
 }

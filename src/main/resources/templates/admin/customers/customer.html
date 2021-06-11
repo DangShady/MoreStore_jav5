@@ -14,7 +14,7 @@
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between">
                                         <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title">Customers</h3>
+                                            <h3 class="nk-block-title page-title">Khách hàng</h3>
                                         </div><!-- .nk-block-head-content -->
                                         <div class="nk-block-head-content">
                                             <div class="toggle-wrap nk-block-tools-toggle">
@@ -43,7 +43,7 @@
                                                         </li>
                                                         <li class="nk-block-tools-opt">
                                                             <a href="#" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
-                                                            <a href="add-customer" class="btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Thêm người dùng</span></a>
+                                                            <a th:href="@{/admin/add-admin}" class="btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Thêm quản trị viên</span></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -140,9 +140,9 @@
                                                             <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
-                                                                    <li><a href="customer-detail"><em class="icon ni ni-eye"></em><span>Xem chi tiết</span></a></li>
+                                                                    <li><a th:href="@{/admin/customer-detail/{username}(username=${customer.username})}"><em class="icon ni ni-eye"></em><span>Xem chi tiết</span></a></li>
                                                                     <li><a href="add-order"><em class="icon ni ni-repeat"></em><span>Tạo order mới</span></a></li>
-                                                                    <li><a href="#"><em class="icon ni ni-na"></em><span>Xóa người dùng</span></a></li>
+                                                                    <!-- <li><a href="#"><em class="icon ni ni-na"></em><span>Xóa người dùng</span></a></li> -->
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -158,14 +158,29 @@
                                             <div class="nk-block-between-md g-3">
                                                 <div class="g">
                                                     <ul class="pagination justify-content-center justify-content-md-start">
-                                                        <li class="page-item"><a class="page-link" href="#"><em class="icon ni ni-chevrons-left"></em></a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                        <li class="page-item"><span class="page-link"><em class="icon ni ni-more-h"></em></span></li>
-                                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#"><em class="icon ni ni-chevrons-right"></em></a></li>
-                                                    </ul><!-- .pagination -->
+                                                        <li  class="page-item" >
+                                                        	<a class="page-link" th:if="${currentPage > 1}" th:href="@{'/admin/customer/page/' + ${currentPage -1}}">
+                                                        		<em class="icon ni ni-chevrons-left"></em>
+                                                       		</a>
+                                                       		<a class="page-link" th:unless="${currentPage > 1}" hidden="hidden">
+                                                        		<em class="icon ni ni-chevrons-left"></em>
+                                                       		</a>
+                                                        </li>
+                                                        
+                                                        <li class="page-item"  th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                                        	<a class="page-link" th:href="@{'/admin/customer/page/' + ${i}}">[[${i}]]</a>
+                                                        	
+                                                        </li>
+                                               
+                                                        <li  class="page-item" >
+                                                        	<a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/customer/page/' + ${currentPage +1}}">
+                                                        		<em class="icon ni ni-chevrons-right"></em>
+                                                       		</a>
+                                                       		<a class="page-link" th:unless="${currentPage < totalPages}" hidden="hidden">
+                                                        		<em class="icon ni ni-chevrons-right"></em>
+                                                       		</a>
+                                                        </li>
+                                                    </ul><!-- .pagination -->  
                                                 </div>
                                                 <div class="g">
                                                     <div class="pagination-goto d-flex justify-content-center justify-content-md-start gx-3">

@@ -32,4 +32,13 @@ public class UploadsFile {
 		
 	}
 	
+	public static void cleanDir(String uploadDir) throws IOException {
+		
+		Path uploadPath = Paths.get(uploadDir);
+		
+		if(Files.exists(uploadPath)) {
+			Files.delete(uploadPath);
+		}
+	}
+	
 }	

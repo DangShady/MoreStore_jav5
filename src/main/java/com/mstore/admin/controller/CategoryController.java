@@ -69,7 +69,7 @@ public class CategoryController {
 	    cateDao.save(category);
 	    
 	    model.addAttribute("categorys", this.cateDao.findAll());
-	    return "admin/category/category";
+	    return "redirect:/admin/category";
 	}
 	
 	@GetMapping("delete/{id}")

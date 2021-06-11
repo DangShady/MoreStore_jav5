@@ -220,7 +220,7 @@ public class AccountController {
 	
 	
 	@GetMapping("account/profile")
-	public String profile() {
+	public String profile(Model model,Account account) {
 		
 		return "site/accounts/user-profile";
 	}
@@ -250,4 +250,25 @@ public class AccountController {
 		return "site/accounts/user-profile";
 	}
 	
+	@PostMapping("account/change-profile")
+	public String changeAccountAdmin(@Valid Account account,BindingResult result,Model model){
+		
+		if(result.hasErrors()) {
+			return "site/accounts/user-profile";
+		}
+		
+		Account acc = (Account) session.getAttribute("USERINJD");
+		
+		account.setUsername(acc.getUsername());
+		account.setActivated(acc.getActivated());
+		account.setPassword(acc.getPassword());
+		account.setDateregister(acc.getDateregister());
+		account.setAdmin(acc.getAdmin());
+		
+		this.accDao.save(account);
+		
+		session.setAttribute("USERINJD", account);
+		
+		return "redirect:/mstore/account/profile";
+	}
 }

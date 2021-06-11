@@ -28,16 +28,9 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		
 		Account account = (Account) session.getAttribute("USERINJD");
-		Account accountAdmin = (Account) session.getAttribute("ADMININJD");
 		
 		if(account == null) {
 			session.setAttribute("back-url", request.getRequestURI());
-			response.sendRedirect("/mstore/account/login");
-			
-			return false;
-		}
-		if(accountAdmin == null) {
-			session.setAttribute("back-url-admin", request.getRequestURI());
 			response.sendRedirect("/mstore/account/login");
 			
 			return false;

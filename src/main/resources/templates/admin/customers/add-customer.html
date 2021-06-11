@@ -13,35 +13,36 @@
                             <div class="nk-content-body">
                                     <div class="nk-block-head">
                                         <div class="nk-block-head-content">
-                                            <h5 class="nk-block-title">New Customer</h5>
+                                            <h5 class="nk-block-title">Thêm quản trị viên</h5>
                                             <div class="nk-block-des">
-                                                <p>Add information and add new customer.</p>
+                                                <p>Thêm mới quản trị viên</p>
                                             </div>
                                         </div>
                                     </div><!-- .nk-block-head -->
+                                    <form th:action="@{/admin/add-admin}" th:object="${account}" method="post">
                                     <div class="nk-block">
                                         <div class="row g-3">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="product-title">Username</label>
+                                                    <label class="form-label" for="product-title">Tên đăng nhập</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" id="product-title">
+                                                        <input type="text" th:field="*{username}" class="form-control" id="product-title">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="product-title">Password</label>
+                                                    <label class="form-label" for="product-title">Mật khẩu</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="password" class="form-control" id="product-title">
+                                                        <input type="password" th:field="*{password}" class="form-control" id="product-title">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-mb-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="regular-price">Fullname</label>
+                                                    <label class="form-label" for="regular-price">Họ và tên</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" id="regular-price">
+                                                        <input type="text" th:field="*{fullname}" class="form-control" id="regular-price">
                                                     </div>
                                                 </div>
                                             </div>
@@ -49,61 +50,33 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="sale-price">Email</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" id="sale-price">
+                                                        <input type="text" th:field="*{email}" class="form-control" id="sale-price">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-mb-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="stock">Moblie number</label>
+                                                    <label class="form-label" for="stock">Số điện thoại</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" id="stock">
+                                                        <input type="text" th:field="*{phone}" class="form-control" id="stock">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-mb-6">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="SKU">Address</label>
+                                                    <label class="form-label" for="SKU">Địa chỉ</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" id="SKU">
+                                                        <input type="text" th:field="*{address}" class="form-control" id="SKU">
                                                     </div>
                                                 </div>
                                             </div>
+                                          	
                                             <div class="col-12">
-                                                <div class="form-group">
-                                                    <label class="form-label" for="category">Birthday</label>
-                                                    <div class="form-group">
-                                                        <div class="form-control-wrap">
-                                                            <div class="form-icon form-icon-right">
-                                                                <em class="icon ni ni-calendar-alt"></em>
-                                                            </div>
-                                                            <input type="text" class="form-control date-picker">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="file-upload">
-                                                    <div class="image-upload-wrap">
-                                                        <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
-                                                        <div class="drag-text">
-                                                            <p>Kéo và thả ảnh hoặc chọn thêm ảnh</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="file-upload-content">
-                                                        <img class="file-upload-image" src="#" alt="your image" />
-                                                        <div class="image-title-wrap">
-                                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span
-                                                                    class="image-title">Uploaded Image</span></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <button class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Add New</span></button>
+                                                <button class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Thêm mới</span></button>
                                             </div>
                                         </div>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>

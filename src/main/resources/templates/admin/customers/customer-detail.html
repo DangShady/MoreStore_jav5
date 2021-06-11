@@ -13,12 +13,15 @@
                             <div class="nk-content-body">
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between g-3">
-                                        <div class="nk-block-head-content">
-                                            <h3 class="nk-block-title page-title">Customer / <strong class="text-primary small">Abu Bin Ishtiyak</strong></h3>
+                                        <div class="nk-block-head-content" th:if="${account.admin == false}">
+                                            <h3 class="nk-block-title page-title">Khách hàng / <strong class="text-primary small" th:utext="${account.fullname}">Abu Bin Ishtiyak</strong></h3>
+                                        </div>
+                                         <div class="nk-block-head-content" th:unless="${account.admin == false}">
+                                            <h3 class="nk-block-title page-title">Quản trị viên / <strong class="text-primary small" th:utext="${account.fullname}">Abu Bin Ishtiyak</strong></h3>
                                         </div>
                                         <div class="nk-block-head-content">
-                                            <a href="html/ecommerce/customers.html" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
-                                            <a href="html/ecommerce/customers.html" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
+                                            <a th:href="@{/admin/customer}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                            <a th:href="@{/admin/customer}" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                                         </div>
                                     </div>
                                 </div><!-- .nk-block-head -->
@@ -33,76 +36,65 @@
                                                 </ul><!-- .nav-tabs -->
                                                 <div class="card-inner">
                                                     <div class="nk-block">
-                                                        <div class="nk-block-head">
-                                                            <h5 class="title">Personal Information</h5>
-                                                            <p>Basic info, like your name and address, that you use on Nio Platform.</p>
+                                                        <div class="nk-block-head" th:if="${account.admin == false}">
+                                                            <h5 class="title">Thông tin khách hàng</h5>
+                                                            <p>Thông tin cơ bản của khách hàng, dùng để liên hệ nếu cần thiết</p>
+                                                        </div><!-- .nk-block-head -->
+                                                        <div class="nk-block-head" th:unless="${account.admin == false}">
+                                                            <h5 class="title">Thông tin quản trị viên</h5>
+                                                            <p>Thông tin cơ bản của quản trị viên, dùng để liên hệ nếu cần thiết</p>
                                                         </div><!-- .nk-block-head -->
                                                         <div class="profile-ud-list">
+                                  
                                                             <div class="profile-ud-item">
                                                                 <div class="profile-ud wider">
-                                                                    <span class="profile-ud-label">Title</span>
-                                                                    <span class="profile-ud-value">Mr.</span>
+                                                                    <span class="profile-ud-label">Họ và tên</span>
+                                                                    <span class="profile-ud-value" th:utext="${account.fullname}">Abu Bin Ishtiyak</span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        
+                                                            <div class="profile-ud-item">
+                                                                <div class="profile-ud wider">
+                                                                    <span class="profile-ud-label">Số điện thoại</span>
+                                                                    <span class="profile-ud-value" th:utext="${account.phone}">01713040400</span>
                                                                 </div>
                                                             </div>
                                                             <div class="profile-ud-item">
                                                                 <div class="profile-ud wider">
-                                                                    <span class="profile-ud-label">Full Name</span>
-                                                                    <span class="profile-ud-value">Abu Bin Ishtiyak</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="profile-ud-item">
-                                                                <div class="profile-ud wider">
-                                                                    <span class="profile-ud-label">Date of Birth</span>
-                                                                    <span class="profile-ud-value">10 Aug, 1980</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="profile-ud-item">
-                                                                <div class="profile-ud wider">
-                                                                    <span class="profile-ud-label">Surname</span>
-                                                                    <span class="profile-ud-value">IO</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="profile-ud-item">
-                                                                <div class="profile-ud wider">
-                                                                    <span class="profile-ud-label">Mobile Number</span>
-                                                                    <span class="profile-ud-value">01713040400</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="profile-ud-item">
-                                                                <div class="profile-ud wider">
-                                                                    <span class="profile-ud-label">Email Address</span>
-                                                                    <span class="profile-ud-value">info@softnio.com</span>
+                                                                    <span class="profile-ud-label">Địa chỉ email</span>
+                                                                    <span class="profile-ud-value" th:utext="${account.email}">info@softnio.com</span>
                                                                 </div>
                                                             </div>
                                                         </div><!-- .profile-ud-list -->
                                                     </div><!-- .nk-block -->
                                                     <div class="nk-block">
                                                         <div class="nk-block-head nk-block-head-line">
-                                                            <h6 class="title overline-title text-base">Additional Information</h6>
+                                                            <h6 class="title overline-title text-base">Thông tin liên quan</h6>
                                                         </div><!-- .nk-block-head -->
                                                         <div class="profile-ud-list">
                                                             <div class="profile-ud-item">
                                                                 <div class="profile-ud wider">
-                                                                    <span class="profile-ud-label">Joining Date</span>
-                                                                    <span class="profile-ud-value">08-16-2018 09:04PM</span>
+                                                                    <span class="profile-ud-label">Ngày gia nhập</span>
+                                                                    <span class="profile-ud-value" th:utext="${account.dateregister}">08-16-2018 09:04PM</span>
                                                                 </div>
                                                             </div>
                                                             <div class="profile-ud-item">
                                                                 <div class="profile-ud wider">
-                                                                    <span class="profile-ud-label">Reg Method</span>
+                                                                    <span class="profile-ud-label">Phương thức liên hệ</span>
                                                                     <span class="profile-ud-value">Email</span>
                                                                 </div>
                                                             </div>
                                                             <div class="profile-ud-item">
                                                                 <div class="profile-ud wider">
-                                                                    <span class="profile-ud-label">Country</span>
-                                                                    <span class="profile-ud-value">United State</span>
+                                                                    <span class="profile-ud-label">Đất nước</span>
+                                                                    <span class="profile-ud-value">Việt Nam</span>
                                                                 </div>
                                                             </div>
                                                             <div class="profile-ud-item">
                                                                 <div class="profile-ud wider">
-                                                                    <span class="profile-ud-label">Nationality</span>
-                                                                    <span class="profile-ud-value">United State</span>
+                                                                    <span class="profile-ud-label">Địa chỉ</span>
+                                                                    <span class="profile-ud-value" th:utext="${account.address}">United State</span>
                                                                 </div>
                                                             </div>
                                                         </div><!-- .profile-ud-list -->

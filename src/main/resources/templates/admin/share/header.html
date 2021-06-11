@@ -43,15 +43,15 @@
                                             </div>
                                             <div class="dropdown-inner">
                                                 <ul class="link-list">
-                                                    <li><a href="html/ecommerce/user-profile.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
-                                                    <li><a href="html/ecommerce/user-profile.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
+                                                    <li><a th:href="@{/admin/customer-detail/{username}(username=${session.ADMININJD.getUsername()})}"><em class="icon ni ni-user-alt"></em><span>Thông tin cá nhân</span></a></li>
+                                                    <li><a th:href="@{/admin/change-admin}"><em class="icon ni ni-setting-alt"></em><span>Cài đặt tài khoản</span></a></li>
                                                     <li><a href="html/ecommerce/user-profile.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
-                                                    <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
+                                                    <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Chế độ tối</span></a></li>
                                                 </ul>
                                             </div>
                                             <div class="dropdown-inner">
                                                 <ul class="link-list">
-                                                    <li><a th:href="@{/admin/logoff}"><em class="icon ni ni-signout"></em><span>Sign out</span></a></li>
+                                                    <li><a th:href="@{/admin/logoff}"><em class="icon ni ni-signout"></em><span>Đăng xuất</span></a></li>
                                                 </ul>
                                             </div>
                                         </div>

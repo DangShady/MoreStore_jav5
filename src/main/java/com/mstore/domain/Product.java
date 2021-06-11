@@ -27,7 +27,7 @@ public class Product{
 	Double price;
 	String image;
 	
-//	@DateTimeFormat(pattern="dd/MM/YYYY")
+	@Column
 	@Temporal(TemporalType.DATE)
 	Date productdate;
 

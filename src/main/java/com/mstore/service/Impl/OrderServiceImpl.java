@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import com.mstore.domain.Order;
@@ -62,6 +63,11 @@ public class OrderServiceImpl implements OrderService{
 		Pageable pageable = PageRequest.of(currentPage-1, 8);
 		
 		return orderDao.getAllOrderPage(pageable);
+	}
+
+	@Override
+	public Page<Order> getTop8OrderPage(Pageable page) {
+		return orderDao.getAllOrderPage(page);
 	}
 
 	

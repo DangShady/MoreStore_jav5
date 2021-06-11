@@ -37,4 +37,8 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
 	@Query("SELECT p FROM Product p WHERE p.category.id =?1")
 	public List<Product> findAllByAsscess(Integer id);
 	
+	@Query("SELECT p FROM Product p ORDER BY p.productdate DESC")
+	public List<Product> newProducts(Pageable pageable);
+	
+	
 }

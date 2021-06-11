@@ -4,7 +4,7 @@
 		layout:decorator="/admin/layout-admin">
 <head>
 <meta charset="UTF-8">
-<title>Thêm người dùng</title>
+<title>Thay đổi thông tin quản trị viên</title>
 </head>
 <body>
 	<div class="nk-content " layout:fragment="content">
@@ -13,20 +13,20 @@
                             <div class="nk-content-body">
                                     <div class="nk-block-head">
                                         <div class="nk-block-head-content">
-                                            <h5 class="nk-block-title">Thêm quản trị viên</h5>
+                                            <h5 class="nk-block-title">Thay đổi thông tin quản trị viên</h5>
                                             <div class="nk-block-des">
-                                                <p>Thêm mới quản trị viên</p>
+                                                <p>Thay đổi thông tin</p>
                                             </div>
                                         </div>
                                     </div><!-- .nk-block-head -->
-                                    <form th:action="@{/admin/add-admin}" th:object="${account}" method="post">
+                                    <form th:action="@{/admin/change-admin}" th:object="${account}" method="post">
                                     <div class="nk-block">
                                         <div class="row g-3">
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label class="form-label" for="product-title">Tên đăng nhập</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" th:field="*{username}" class="form-control" id="product-title">
+                                                        <input type="text" th:field="*{username}" th:value="${session.ADMININJD.getUsername()}" disabled="disabled" class="form-control" id="product-title">
                                                     </div>
                                                 </div>
                                             </div>
@@ -34,7 +34,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="product-title">Mật khẩu</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="password" th:field="*{password}" class="form-control" id="product-title">
+                                                        <input type="password" name="password" th:value="${session.ADMININJD.getPassword()}" class="form-control" id="product-title">
                                                     </div>
                                                 </div>
                                             </div>
@@ -42,7 +42,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="regular-price">Họ và tên</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" th:field="*{fullname}" class="form-control" id="regular-price">
+                                                        <input type="text" name="fullname" th:value="${session.ADMININJD.getFullname()}" class="form-control" id="regular-price">
                                                     </div>
                                                 </div>
                                             </div>
@@ -50,7 +50,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="sale-price">Email</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" th:field="*{email}" class="form-control" id="sale-price">
+                                                        <input type="text" name="email" th:value="${session.ADMININJD.getEmail()}" class="form-control" id="sale-price">
                                                     </div>
                                                 </div>
                                             </div>
@@ -58,7 +58,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="stock">Số điện thoại</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" th:field="*{phone}" class="form-control" id="stock">
+                                                        <input type="text" name="phone" th:value="${session.ADMININJD.getPhone()}" class="form-control" id="stock">
                                                     </div>
                                                 </div>
                                             </div>
@@ -66,13 +66,14 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="SKU">Địa chỉ</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" th:field="*{address}" class="form-control" id="SKU">
+                                                        <input type="text" name="address" th:value="${session.ADMININJD.getAddress()}" class="form-control" id="SKU">
                                                     </div>
                                                 </div>
                                             </div>
+                                
                                           	
                                             <div class="col-12">
-                                                <button class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Thêm mới</span></button>
+                                                <button class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Thay đổi</span></button>
                                             </div>
                                         </div>
                                 </div>
