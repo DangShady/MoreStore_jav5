@@ -18,7 +18,7 @@ import com.mstore.service.CategoryService;
 
 @SuppressWarnings("deprecation")
 @Component
-public class AuthorizeAdminInterceptor extends HandlerInterceptorAdapter {
+public class AuthorizeAdminInterceptor implements HandlerInterceptor {
 
 		
 	@Override

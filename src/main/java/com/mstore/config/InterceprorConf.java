@@ -23,7 +23,7 @@ public class InterceprorConf implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		
-		registry.addInterceptor(global).addPathPatterns("/mstore/**");
+		registry.addInterceptor(global).addPathPatterns("/mstore/**").excludePathPatterns("/static/**");
 		
 		registry.addInterceptor(auth).addPathPatterns("/mstore/account/profile",
 				"/mstore/account/logoff","/mstore/order-cart/**");

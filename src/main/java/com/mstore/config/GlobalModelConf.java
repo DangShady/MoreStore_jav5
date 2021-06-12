@@ -17,7 +17,7 @@ import com.mstore.service.CategoryService;
 
 @SuppressWarnings("deprecation")
 @Component
-public class GlobalModelConf extends HandlerInterceptorAdapter {
+public class GlobalModelConf implements HandlerInterceptor {
 
 		
 	@Autowired
