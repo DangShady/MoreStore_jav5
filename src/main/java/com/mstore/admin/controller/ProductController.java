@@ -62,14 +62,16 @@ public class ProductController {
 
 	@GetMapping("product")
 	public String products(Model model) {
-
-		return listProductByPage(model, 1);
+		
+		return listProductByPage(model, 1 , null);
 	}
 
 	@GetMapping("product/page/{pageNumber}")
-	public String listProductByPage(Model model, @PathVariable("pageNumber") int currentPage) {
+	public String listProductByPage(Model model, @PathVariable("pageNumber") int currentPage,
+			@Param("keyword") String keyword
+			) {
 
-		Page<Product> page = this.proService.listAll(currentPage);
+		Page<Product> page = this.proService.getAllProductAdmin(keyword,currentPage);
 
 		long totalItems = page.getTotalElements();
 
@@ -83,6 +85,8 @@ public class ProductController {
 		model.addAttribute("totalPages", totalPages);
 
 		model.addAttribute("products", listProduct);
+		
+		model.addAttribute("keyword",keyword);
 
 		return "admin/product/product";
 	}

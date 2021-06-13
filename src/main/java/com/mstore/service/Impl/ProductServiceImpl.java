@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Repository;
 
 import com.mstore.domain.Product;
@@ -48,13 +50,13 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<Product> getAllProductAdmin(String keyword) {
-		
+	public Page<Product> getAllProductAdmin(String keyword, int pageNumber) {
+		Pageable pageable = PageRequest.of(pageNumber-1, 8);
 		if(keyword != null) {
-			return productDao.findAllProductAdmin(keyword);
+			return productDao.findAllProductAdmin(keyword,pageable);
 		}
 		
-		return productDao.findAll();
+		return productDao.listAll(pageable);
 		
 	}
 
