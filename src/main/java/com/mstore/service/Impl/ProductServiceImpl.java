@@ -24,17 +24,30 @@ public class ProductServiceImpl implements ProductService{
 	
 	
 	@Override
-	public List<Product> getProductByCategory(int id) {
+	public List<Product> getProductByCategory(int id,Sort sort) {
 		
-		return productDao.getListProductByCategory(id);
+		return productDao.getListProductByCategory(id,sort);
 		
 	}
+	
+	@Override
+	public List<Product> getProductByCategoryNoSort(int id) {
+		
+		return productDao.getListProductByCategoryNoSort(id);
+		
+	}
+	
 	
 	@Override
 	public List<Product> findProductByName(String keyword) {
 		
 		return productDao.findProductByName(keyword);
 		
+	}
+	
+	@Override
+	public List<Product> findProductByNameAndSort(String keyword, Sort sort) {
+		return productDao.findProductByNameAndSort(keyword,sort);
 	}
 	
 	@Override
@@ -67,6 +80,10 @@ public class ProductServiceImpl implements ProductService{
 		
 		return productDao.findAll(pageable);
 	}
+
+	
+
+	
 
 	
 

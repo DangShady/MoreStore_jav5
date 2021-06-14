@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,13 +78,32 @@ public class ProductSiteController {
 		return "site/products/product";
 	}
 	
-	@GetMapping("list-product/find-by-name")
-	public String findByName(Model model, @RequestParam("search-product") String keyword) {
+	@GetMapping("list-product/product/find-by-name")
+	public String findByName(Model model, @RequestParam("search-product") String keyword,
+			@RequestParam(value = "show",defaultValue = "") String show
+			) {
+		
+		Sort sort = null;
+		switch (show) {
+		case "priceAsc":
+			sort = Sort.by(Direction.ASC, "price");
+			break;
+		case "priceDesc":
+			sort = Sort.by(Direction.DESC, "price");
+			break;
+		case "new":
+			sort = Sort.by(Direction.DESC, "productdate");
+			break;
+		default:
+			sort = Sort.by(Direction.DESC, "productdate");
+			break;
+		}
 		
 		
-		List<Product> listByName = productService.findProductByName(keyword);
+		List<Product> listByName = productService.findProductByNameAndSort(keyword,sort);
 		
 		
+		model.addAttribute("keySearch",keyword);
 		model.addAttribute("products",listByName);
 		
 		return "site/products/product";
@@ -90,13 +111,31 @@ public class ProductSiteController {
 	
 	
 	@GetMapping("list-product/product/{id}")
-	public String getListProductByCategory(@PathVariable("id") int id,Model model) {
+	public String getListProductByCategory(Model model,@PathVariable("id") int id,
+			@RequestParam(value = "show",defaultValue = "") String show
+			) {
 		
+		Sort sort = null;
+		switch (show) {
+		case "priceAsc":
+			sort = Sort.by(Direction.ASC, "price");
+			break;
+		case "priceDesc":
+			sort = Sort.by(Direction.DESC, "price");
+			break;
+		case "new":
+			sort = Sort.by(Direction.DESC, "productdate");
+			break;
+		default:
+			sort = Sort.by(Direction.DESC, "productdate");
+			break;
+		}
 		
-		
-		List<Product> products = productService.getProductByCategory(id);
+		List<Product> products = productService.getProductByCategory(id,sort);
 		
 		model.addAttribute("products",products);
+		
+		model.addAttribute("idToSort",id);
 		
 		return "site/products/product";
 		
@@ -108,7 +147,7 @@ public class ProductSiteController {
 		
 		Product product = productService.getProductDetailById(id);
 		
-		List<Product> listRelatedProduct = productService.getProductByCategory(product.getCategory().getId());
+		List<Product> listRelatedProduct = productService.getProductByCategoryNoSort(product.getCategory().getId());
 		
 		model.addAttribute("relatedProduct",listRelatedProduct);
 		model.addAttribute("productDetail",product);

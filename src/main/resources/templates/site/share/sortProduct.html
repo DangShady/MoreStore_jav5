@@ -27,7 +27,7 @@
 							<i class="zmdi zmdi-search"></i>
 						</button>
 
-						<form th:action="@{/mstore/list-product/find-by-name}">
+						<form th:action="@{/mstore/list-product/product/find-by-name}">
 							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" onchange="this.form.submit()" name="search-product" placeholder="Tìm kiếm">
 						</form>
 					</div>	
@@ -42,39 +42,48 @@
 							</div>
 
 							<ul>
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Default
+								<li class="p-b-6" th:if="${keySearch != null}">
+									<a th:href="@{'/mstore/list-product/product/find-by-name' + '?search-product='+${keySearch}}" class="filter-link stext-106 trans-04">
+										Tùy chọn
+									</a>
+								</li>
+								<li class="p-b-6" th:if="${idToSort != null}">
+									<a th:href="@{/mstore/list-product/product/{id}(id=${idToSort})}" class="filter-link stext-106 trans-04">
+										Tùy chọn
+									</a>
+								</li>
+								<li class="p-b-6" th:if="${keySearch != null}">
+									<a th:href="@{/mstore/list-product/product/find-by-name} + '?search-product='+${keySearch} +'&show=new'" class="filter-link stext-106 trans-04">
+										Mới nhất
+									</a>
+								</li>
+								<li class="p-b-6" th:if="${idToSort != null}">
+									<a th:href="@{/mstore/list-product/product/{id}(id=${idToSort})}+ '?show=new'" class="filter-link stext-106 trans-04">
+										Mới nhất
+									</a>
+								</li>
+								
+								<li class="p-b-6" th:if="${keySearch != null}">
+									<a th:href="@{/mstore/list-product/product/find-by-name}+ '?search-product='+${keySearch} + '&show=priceAsc'" class="filter-link stext-106 trans-04">
+										Giá: Thấp đến cao
+									</a>
+								</li>
+								
+								<li class="p-b-6" th:if="${idToSort != null}">
+									<a th:href="@{/mstore/list-product/product/{id}(id=${idToSort})}+ '?show=priceAsc'" class="filter-link stext-106 trans-04">
+										Giá: Thấp đến cao
 									</a>
 								</li>
 
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Popularity
+								<li class="p-b-6" th:if="${keySearch != null}">
+									<a th:href="@{/mstore/list-product/product/find-by-name}+ '?search-product='+${keySearch} + '&show=priceDesc'" class="filter-link stext-106 trans-04">
+										Giá: Cao đến thấp
 									</a>
 								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Average rating
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-										Newness
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Price: Low to High
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										Price: High to Low
+								
+								<li class="p-b-6" th:if="${idToSort != null}">
+									<a th:href="@{/mstore/list-product/product/{id}(id=${idToSort})}+ '?show=priceDesc'" class="filter-link stext-106 trans-04">
+										Giá: Cao đến thấp
 									</a>
 								</li>
 							</ul>
