@@ -26,7 +26,9 @@
                                                                 <div class="form-icon form-icon-right">
                                                                     <em class="icon ni ni-search"></em>
                                                                 </div>
-                                                                <input type="text" class="form-control" id="default-04" placeholder="Search by name">
+                                                                <form th:action="@{/admin/customer/page/1}">
+                                                                	<input type="text" class="form-control" id="default-04" name="keyword" th:value="${keyword}" onchange="this.form.submit()" placeholder="Tìm kiếm">
+                                                                </form>
                                                             </div>
                                                         </li>
                                                         <li>
@@ -159,7 +161,7 @@
                                                 <div class="g">
                                                     <ul class="pagination justify-content-center justify-content-md-start">
                                                         <li  class="page-item" >
-                                                        	<a class="page-link" th:if="${currentPage > 1}" th:href="@{'/admin/customer/page/' + ${currentPage -1}}">
+                                                        	<a class="page-link" th:if="${currentPage > 1}" th:href="@{'/admin/customer/page/' + ${currentPage -1}+${keyword != null ? '?keyword=' + keyword : ''}}">
                                                         		<em class="icon ni ni-chevrons-left"></em>
                                                        		</a>
                                                        		<a class="page-link" th:unless="${currentPage > 1}" hidden="hidden">
@@ -168,12 +170,12 @@
                                                         </li>
                                                         
                                                         <li class="page-item"  th:each="i: ${#numbers.sequence(1, totalPages)}">
-                                                        	<a class="page-link" th:href="@{'/admin/customer/page/' + ${i}}">[[${i}]]</a>
+                                                        	<a class="page-link" th:href="@{'/admin/customer/page/' + ${i}+${keyword != null ? '?keyword=' + keyword : ''}}">[[${i}]]</a>
                                                         	
                                                         </li>
                                                
                                                         <li  class="page-item" >
-                                                        	<a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/customer/page/' + ${currentPage +1}}">
+                                                        	<a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/customer/page/' + ${currentPage +1}+${keyword != null ? '?keyword=' + keyword : ''}}">
                                                         		<em class="icon ni ni-chevrons-right"></em>
                                                        		</a>
                                                        		<a class="page-link" th:unless="${currentPage < totalPages}" hidden="hidden">

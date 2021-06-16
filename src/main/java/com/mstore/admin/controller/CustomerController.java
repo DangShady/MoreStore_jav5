@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -49,15 +50,17 @@ public class CustomerController {
 	public String listCustomer(Model model) {
 		
 		
-		return listCustomerByPage(model,1);
+		return listCustomerByPage(model,1,null);
 	}
 	
 	
 	@GetMapping("customer/page/{pageNumber}")
-	public String listCustomerByPage(Model model,@PathVariable("pageNumber") int currentPage) {
+	public String listCustomerByPage(Model model,@PathVariable("pageNumber") int currentPage
+			,@Param("keyword") String keyword
+			) {
 		
 		
-		Page<Account> page = cusService.getAllCustomer(currentPage);
+		Page<Account> page = cusService.getAllCustomer(currentPage,keyword);
 		
 		long totalItems= page.getTotalElements();
 		
@@ -70,6 +73,8 @@ public class CustomerController {
 		
 		model.addAttribute("totalItems",totalItems);
 		model.addAttribute("totalPages",totalPages);
+		
+		model.addAttribute("keyword",keyword);
 		
 		
 		model.addAttribute("customers",listCustomer);

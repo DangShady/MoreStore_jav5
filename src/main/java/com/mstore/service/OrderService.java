@@ -20,6 +20,8 @@ public interface OrderService {
 	
 	public Page<Order> getAllOrderPage(int currentPage);
 	
+	public Page<Order> getAllOrderPageAndSearch(int currentPage,String keyword);
+	
 	public Page<Order> getTop8OrderPage(Pageable page);
 	
 	public List<Order> getAllOrder();

@@ -59,6 +59,17 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
+	public Page<Order> getAllOrderPageAndSearch(int currentPage,String keyword) {
+		Pageable pageable = PageRequest.of(currentPage-1, 8);
+		
+		if(keyword != null) {
+			return orderDao.getAllOrderPageAndSort(keyword,pageable);
+		}
+		
+		return orderDao.findAll(pageable);
+	}
+	
+	@Override
 	public Page<Order> getAllOrderPage(int currentPage) {
 		Pageable pageable = PageRequest.of(currentPage-1, 8);
 		
@@ -70,6 +81,5 @@ public class OrderServiceImpl implements OrderService{
 		return orderDao.getAllOrderPage(page);
 	}
 
-	
 
 }

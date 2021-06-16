@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,18 +41,15 @@ public class OrderAdminController {
 	@GetMapping("order")
 	public String lisrOrder(Model model) {
 		
-//		List<Order> orders = orderService.getAllOrder();
-//		
-//		model.addAttribute("orders",orders);
 		
-		return listOrderByPage(model,1);
+		return listOrderByPage(model,1,null);
 	}
 	
 	@GetMapping("order/page/{pageNumber}")
-	public String listOrderByPage(Model model, @PathVariable("pageNumber") int currentPage) {
+	public String listOrderByPage(Model model, @PathVariable("pageNumber") int currentPage,@Param("keyword") String keyword) {
 		
 		
-		Page<Order> page = this.orderService.getAllOrderPage(currentPage);
+		Page<Order> page = this.orderService.getAllOrderPageAndSearch(currentPage,keyword);
 		
 		long totalItems= page.getTotalElements();
 		
@@ -64,6 +62,8 @@ public class OrderAdminController {
 		
 		model.addAttribute("totalItems",totalItems);
 		model.addAttribute("totalPages",totalPages);
+		
+		model.addAttribute("keyword",keyword);
 		
 		
 		model.addAttribute("orders", listOrders);

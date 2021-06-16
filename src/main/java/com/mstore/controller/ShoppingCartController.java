@@ -31,7 +31,7 @@ public class ShoppingCartController {
 	@Autowired
 	CartService cartService;
 	
-	@Autowired
+	@Autowired()
 	HttpSession session;
 	
 	@Autowired
@@ -42,14 +42,18 @@ public class ShoppingCartController {
 	
 	
 	@ResponseBody
-	@RequestMapping("product/add-to-cart/{id}")
-	public String addToCart(@PathVariable("id") Integer id) {
+	@RequestMapping("product/add-to-cart/{id}/{quantity}")
+	public String addToCart(@PathVariable("id") Integer id,@PathVariable("quantity") Integer quantity) {
 		
-		cartService.add(id);
+		System.out.println("Quantity  " +  quantity);
+		
+		cartService.add(id,quantity);
 		
 		session.setAttribute("amountCart", cartService.getAmount());
 		
 		session.setAttribute("Cart", cartService.getItems());
+		
+		session.setAttribute("countCart", cartService.getCount());
 		
 		
 		return "";
@@ -64,12 +68,11 @@ public class ShoppingCartController {
 		if(quantity == 0) {
 			cartService.remove(id);
 		}
-		System.out.println("Product id" + id);
-		System.out.println("Quantity" + quantity);
+
 		
 		request.getSession().setAttribute("amountCart", cartService.getAmount());
 		
-		//session.setAttribute("Cart", cartService.getItems());
+		session.setAttribute("countCart", cartService.getCount());
 		
 		return "update";
 	}
@@ -84,6 +87,9 @@ public class ShoppingCartController {
 		request.getSession().setAttribute("amountCart", cartService.getAmount());
 		
 		session.setAttribute("Cart", cartService.getItems());
+		
+		
+		session.setAttribute("countCart", cartService.getCount());
 		
 		return "remove";
 	}

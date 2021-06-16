@@ -21,5 +21,8 @@ public interface OrderDAO extends JpaRepository<Order, Integer>{
 	
 	@Query("SELECT o FROM Order o ORDER BY o.id desc")
 	public Page<Order> getAllOrderPage(Pageable pageable);
+	
+	@Query("SELECT o FROM Order o WHERE CONCAT(o.fullname, o.address) LIKE %?1% ORDER BY o.id desc")
+	public Page<Order> getAllOrderPageAndSort(String keyword,Pageable pageable);
 
 }

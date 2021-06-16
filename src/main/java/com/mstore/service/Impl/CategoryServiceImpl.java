@@ -5,6 +5,9 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.mstore.domain.Category;
@@ -51,6 +54,22 @@ public class CategoryServiceImpl implements CategoryService{
 	public void delete(int id) {
 		
 		categoryDao.deleteById(id);	
+	}
+
+	@Override
+	public Page<Category> getAllCategoryAndSearch(int currentPage, String keyword) {
+		Pageable pageable = PageRequest.of(currentPage-1, 8);
+		
+		if(keyword != null) {
+			return categoryDao.getAllCategoryAndSearch(keyword,pageable);
+		}
+		return categoryDao.getAllCategory(pageable);
+	}
+
+	@Override
+	public Page<Category> getAllCategory(int pageNumber) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

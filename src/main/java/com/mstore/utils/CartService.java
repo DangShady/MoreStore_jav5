@@ -26,17 +26,17 @@ public class CartService {
 	Map<Integer, Product> map = new HashMap<>();
 	
 
-	public void add(Integer id) {
+	public void add(Integer id,Integer quantity) {
 		
 		Product p = map.get(id);
 		if(p == null) {
 			p = proDao.getById(id);
-			p.setQuantity(1);
+			p.setQuantity(quantity);
 			
 			map.put(id, p);
 		}
 		else {
-			p.setQuantity(p.getQuantity()+1);
+			p.setQuantity(p.getQuantity()+quantity);
 		}
 	}
 	

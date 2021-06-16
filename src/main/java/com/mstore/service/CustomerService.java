@@ -10,7 +10,7 @@ import com.mstore.domain.Account;
 @Service
 public interface CustomerService {
 
-	public Page<Account> getAllCustomer(int currentPage);
+	public Page<Account> getAllCustomer(int currentPage,String keyword);
 	
 	
 }
