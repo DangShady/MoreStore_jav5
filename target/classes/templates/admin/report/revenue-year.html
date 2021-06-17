@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.utraq.net.nz/thymeleaf/layout"
+		layout:decorator="/admin/layout-admin">
+<head>
+<meta charset="UTF-8">
+<title>Sản phẩm</title>
+</head>
+<body>
+	<div class="nk-content " layout:fragment="content">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-block-head nk-block-head-sm">
+                                    <div class="nk-block-between">
+                                        <div class="nk-block-head-content">
+                                            <h3 class="nk-block-title page-title">Doanh thu theo năm</h3>
+                                        </div><!-- .nk-block-head-content -->
+                                        <div class="nk-block-head-content">
+                                            <div class="toggle-wrap nk-block-tools-toggle">
+                                                <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
+                                                
+                                            </div>
+                                        </div><!-- .nk-block-head-content -->
+                                    </div><!-- .nk-block-between -->
+                                </div><!-- .nk-block-head -->
+                                <div class="nk-block">
+                                    <div class="nk-tb-list is-separate mb-3">
+                                        <div class="nk-tb-item nk-tb-head">
+                                            
+                                            <div class="nk-tb-col tb-col-sm"><span>Năm</span></div>
+                                            <div class="nk-tb-col"><span>Số lượng bán ra</span></div>
+                                            <div class="nk-tb-col"><span>Tổng doanh thu</span></div>
+                                            <div class="nk-tb-col"><span>Thấp nhất</span></div>
+                                            <div class="nk-tb-col tb-col-md"><span>Cao nhất</span></div>
+                                            <div class="nk-tb-col tb-col-md"><span>Trung bình</span></div>
+                                            
+                                
+                                        </div><!-- .nk-tb-item -->
+                                        <div class="nk-tb-item" th:each="inventory : ${data}">
+                                            
+                                            <div class="nk-tb-col tb-col-sm">
+                                                <span class="tb-product">
+                                                    
+                                                    <span class="title" th:text="${inventory[0]}"></span>
+                                                </span>
+                                            </div>
+                                            <div class="nk-tb-col">
+                                                <span class="tb-lead" th:text="${inventory[1]}"></span>
+                                            </div>
+                                            <div class="nk-tb-col">
+                                                <span class="tb-lead" th:text="${#numbers.formatInteger(inventory[2],3,'POINT')}+đ"></span>
+                                            </div>
+                                            <div class="nk-tb-col">
+                                                <span class="tb-lead" th:text="${#numbers.formatInteger(inventory[3],3,'POINT')}+đ"></span>
+                                            </div>
+                                            <div class="nk-tb-col tb-col-md">
+                                                <span class="tb-lead" th:text="${#numbers.formatInteger(inventory[4],3,'POINT')}+đ"></span>
+                                            </div>
+                                            <div class="nk-tb-col tb-col-md">
+                                                <span class="tb-lead" th:text="${#numbers.formatInteger(inventory[5],3,'POINT')}+đ"></span>
+                                            </div>
+                                          
+                                         
+                                        </div><!-- .nk-tb-item -->
+                                        
+                                    </div><!-- .nk-tb-list -->
+                                    <div class="card">
+                                        <div class="card-inner">
+                                            <div class="nk-block-between-md g-3">
+                                                <div class="g">
+                                                    <!-- <ul class="pagination justify-content-center justify-content-md-start">
+                                                        <li  class="page-item" >
+                                                        	<a class="page-link" th:if="${currentPage > 1}" th:href="@{'/admin/product/page/' + ${currentPage -1} +${keyword != null ? '?keyword=' + keyword : ''}}">
+                                                        		<em class="icon ni ni-chevrons-left"></em>
+                                                       		</a>
+                                                       		<a class="page-link" th:unless="${currentPage > 1}" hidden="hidden">
+                                                        		<em class="icon ni ni-chevrons-left"></em>
+                                                       		</a>
+                                                        </li>
+                                                        
+                                                        <li class="page-item"  th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                                        	<a class="page-link" th:href="@{'/admin/product/page/' + ${i} +${keyword != null ? '?keyword=' + keyword : ''}}">[[${i}]]</a>
+                                                        	
+                                                        </li>
+                                                        
+                                               
+                                                        <li  class="page-item" >
+                                                        	<a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/admin/product/page/' + ${currentPage +1} +${keyword != null ? '?keyword=' + keyword : ''}}">
+                                                        		<em class="icon ni ni-chevrons-right"></em>
+                                                       		</a>
+                                                       		<a class="page-link" th:unless="${currentPage < totalPages}" hidden="hidden">
+                                                        		<em class="icon ni ni-chevrons-right"></em>
+                                                       		</a>
+                                                        </li>
+                                                    </ul> --><!-- .pagination -->  
+                                                </div>
+                                                
+                                                <div class="g">
+                                                    <div class="pagination-goto d-flex justify-content-center justify-content-md-start gx-3">
+                                                        <div>Page</div>
+                                                        <div>
+                                                            <select class="form-select form-select-sm" data-search="on" data-dropdown="xs center">
+                                                                <option value="page-1">1</option>
+                                                                <option value="page-2">2</option>
+                                                                <option value="page-4">4</option>
+                                                                <option value="page-5">5</option>
+                                                                <option value="page-6">6</option>
+                                                                <option value="page-7">7</option>
+                                                                <option value="page-8">8</option>
+                                                                <option value="page-9">9</option>
+                                                                <option value="page-10">10</option>
+                                                                <option value="page-11">11</option>
+                                                                <option value="page-12">12</option>
+                                                                <option value="page-13">13</option>
+                                                                <option value="page-14">14</option>
+                                                                <option value="page-15">15</option>
+                                                                <option value="page-16">16</option>
+                                                                <option value="page-17">17</option>
+                                                                <option value="page-18">18</option>
+                                                                <option value="page-19">19</option>
+                                                                <option value="page-20">20</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>OF 102</div>
+                                                    </div>
+                                                </div><!-- .pagination-goto -->
+                                            </div><!-- .nk-block-between -->
+                                        </div>
+                                    </div>
+                                </div><!-- .nk-block -->
+                        </div>
+                    </div>
+                </div>
+                </div>
+</body>
+</html>
