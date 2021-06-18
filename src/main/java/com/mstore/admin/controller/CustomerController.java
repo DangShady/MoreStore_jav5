@@ -11,6 +11,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +23,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mstore.domain.Account;
 import com.mstore.domain.Order;
+import com.mstore.domain.Product;
 import com.mstore.repository.AccountDAO;
 import com.mstore.service.CustomerService;
 import com.mstore.service.OrderService;
@@ -50,17 +54,32 @@ public class CustomerController {
 	public String listCustomer(Model model) {
 		
 		
-		return listCustomerByPage(model,1,null);
+		return listCustomerByPage(model,1,null,"");
 	}
 	
 	
 	@GetMapping("customer/page/{pageNumber}")
 	public String listCustomerByPage(Model model,@PathVariable("pageNumber") int currentPage
-			,@Param("keyword") String keyword
+			,@Param("keyword") String keyword,
+			@RequestParam(value = "show",defaultValue = "") String show
 			) {
 		
+		Page<Account> page = null;
 		
-		Page<Account> page = cusService.getAllCustomer(currentPage,keyword);
+		switch (show) {
+		case "admin":
+			page = cusService.getAdmin(currentPage, keyword);
+			break;
+		case "customer":
+			page = cusService.getCustomer(currentPage, keyword);
+			break;
+		default:
+			page = cusService.getAllCustomer(currentPage,keyword);
+			break;
+		}
+		
+		
+//		Page<Account> page = cusService.getAllCustomer(currentPage,keyword);
 		
 		long totalItems= page.getTotalElements();
 		
@@ -147,6 +166,16 @@ public class CustomerController {
 		session.setAttribute("ADMININJD", account);
 		
 		return "redirect:/admin/admin-page";
+	}
+	
+	@GetMapping("customer/delete/{username}")
+	public String deleteAdmin(@PathVariable("username") String username,Model model) {
+		
+		Account acc = accDao.findById(username).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + username));
+		
+		accDao.delete(acc);
+		
+		return "redirect:/admin/customer/page/1?show=admin";
 	}
 	
 }

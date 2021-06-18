@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService{
 			return orderDao.getAllOrderPageAndSort(keyword,pageable);
 		}
 		
-		return orderDao.findAll(pageable);
+		return orderDao.getAllOrderPage(pageable);
 	}
 	
 	@Override

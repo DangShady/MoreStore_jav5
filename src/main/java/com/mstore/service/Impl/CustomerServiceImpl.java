@@ -33,4 +33,24 @@ public class CustomerServiceImpl implements CustomerService{
 		return accDao.getAllCustomer(pageable);
 	}
 
+	@Override
+	public Page<Account> getAdmin(int currentPage,String keyword) {
+		Pageable pageable = PageRequest.of(currentPage-1, 8);
+		
+		if(keyword != null) {
+			return accDao.getAdminAndSearch(keyword,pageable);
+		}
+		return accDao.getAdmin(pageable);
+	}
+
+	@Override
+	public Page<Account> getCustomer(int currentPage,String keyword) {
+		Pageable pageable = PageRequest.of(currentPage-1, 8);
+		
+		if(keyword != null) {
+			return accDao.getCustomerAndSearch(keyword,pageable);
+		}
+		return accDao.getCustomer(pageable);
+	}
+
 }

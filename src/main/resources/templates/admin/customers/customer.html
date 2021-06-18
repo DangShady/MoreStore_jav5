@@ -32,16 +32,18 @@
                                                             </div>
                                                         </li>
                                                         <li>
+                                                        
                                                             <div class="drodown">
-                                                                <a href="#" class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white" data-toggle="dropdown">Status</a>
+                                                                <a href="#" class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white" data-toggle="dropdown">Bộ lọc</a>
                                                                 <div class="dropdown-menu dropdown-menu-right">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a href="#"><span>Actived</span></a></li>
-                                                                        <li><a href="#"><span>Inactived</span></a></li>
-                                                                        <li><a href="#"><span>Blocked</span></a></li>
+                                                                        <li><a th:href="@{/admin/customer/page/1?show=admin}"><span>Quản trị viên</span></a></li>
+                                                                        <li><a th:href="@{/admin/customer}"><span>Khách hàng</span></a></li>
+                                                                        <!-- <li><a href="#"><span>Chưa kích hoạt</span></a></li> -->
                                                                     </ul>
                                                                 </div>
                                                             </div>
+                                                          
                                                         </li>
                                                         <li class="nk-block-tools-opt">
                                                             <a href="#" class="btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
@@ -144,7 +146,7 @@
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li><a th:href="@{/admin/customer-detail/{username}(username=${customer.username})}"><em class="icon ni ni-eye"></em><span>Xem chi tiết</span></a></li>
                                                                     <li><a href="add-order"><em class="icon ni ni-repeat"></em><span>Tạo order mới</span></a></li>
-                                                                    <!-- <li><a href="#"><em class="icon ni ni-na"></em><span>Xóa người dùng</span></a></li> -->
+                                                                    <li th:if="${customer.admin == true && customer.username != session.ADMININJD.getUsername() }"><a th:href="@{/admin/customer/delete/{username}(username=${customer.username})}"><em class="icon ni ni-na"></em><span>Xóa người dùng</span></a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>

@@ -3,6 +3,7 @@ package com.mstore.service;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ReportService {
 	
@@ -17,5 +18,7 @@ public interface ReportService {
 	public List<Object[]> revenueByQuater();
 	
 	public List<Object[]> revenueByMonth();
+	
+	public Page<Object[]> topProductDashboard(Pageable page);
 	
 }

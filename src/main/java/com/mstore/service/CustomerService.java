@@ -12,5 +12,9 @@ public interface CustomerService {
 
 	public Page<Account> getAllCustomer(int currentPage,String keyword);
 	
+	public Page<Account> getAdmin(int currentPage,String keyword);
+	
+	public Page<Account> getCustomer(int currentPage,String keyword);
+	
 	
 }

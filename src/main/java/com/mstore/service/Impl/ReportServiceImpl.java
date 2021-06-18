@@ -62,4 +62,10 @@ public class ReportServiceImpl implements ReportService{
 		return detailDao.revenueByMonth();
 	}
 
+	@Override
+	public Page<Object[]> topProductDashboard(Pageable page) {
+		// TODO Auto-generated method stub
+		return detailDao.topProductDashboard(page);
+	}
+
 }

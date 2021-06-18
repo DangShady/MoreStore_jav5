@@ -29,6 +29,7 @@ public class Product{
 	
 	@Column
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="MM/dd/yyyy")
 	Date productdate;
 
 	@ManyToOne @JoinColumn(name = "categoryid")

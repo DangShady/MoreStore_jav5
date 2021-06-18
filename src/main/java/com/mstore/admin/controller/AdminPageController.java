@@ -1,5 +1,7 @@
 package com.mstore.admin.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,10 @@ import com.mstore.domain.Order;
 import com.mstore.repository.AccountDAO;
 import com.mstore.repository.CategoryDAO;
 import com.mstore.repository.OrderDAO;
+import com.mstore.repository.OrderDetailDAO;
 import com.mstore.repository.ProductDAO;
 import com.mstore.service.OrderService;
+import com.mstore.service.ReportService;
 
 @Controller
 @RequestMapping("/admin/")
@@ -27,6 +31,12 @@ public class AdminPageController {
 	
 	@Autowired
 	OrderService orderService;
+	
+	@Autowired
+	OrderDetailDAO detailDao;
+	
+	@Autowired 
+	ReportService reportService;
 	
 	@Autowired
 	OrderDAO orderDao;
@@ -49,6 +59,14 @@ public class AdminPageController {
 		
 		Page<Order> list = this.orderService.getTop8OrderPage(page);
 		
+		Page<Object[]> topProduct = this.reportService.topProductDashboard(page);
+		
+		Object[] sales = this.detailDao.revenueByDashboardTotalSales();
+		Object[] avg = this.detailDao.revenueByDashboardAvgSales();
+		Object[] month = this.detailDao.revenueByDashboardByMonth();
+		Object[] week = this.detailDao.revenueByDashboardByWeek();
+		
+		
 		int orderCount = (int) orderDao.count();
 		
 		int accCount = (int) accDao.count();
@@ -57,8 +75,11 @@ public class AdminPageController {
 		
 		int cateCount = (int) cateDao.count();
 		
-		
-		
+		model.addAttribute("sales",sales);
+		model.addAttribute("week",week);
+		model.addAttribute("month",month);
+		model.addAttribute("avg",avg);
+		model.addAttribute("topProduct",topProduct);
 		model.addAttribute("orderCount",orderCount);
 		model.addAttribute("accCount",accCount);
 		model.addAttribute("proCount",proCount);
