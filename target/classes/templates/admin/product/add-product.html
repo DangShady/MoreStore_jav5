@@ -27,6 +27,7 @@
                                                     <label class="form-label" for="product-title">Tên sản phẩm</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" class="form-control" th:field="*{name}" id="product-title">
+                                                        <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -35,6 +36,7 @@
                                                     <label class="form-label" for="regular-price">Giá sản phẩm</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" class="form-control" th:field="*{price}" id="regular-price">
+                                                        <p class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -43,6 +45,7 @@
                                                     <label class="form-label" for="sale-price">Số lượng <price></price></label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" class="form-control" th:field="*{quantity}" id="sale-price">
+                                                        <p class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -56,6 +59,7 @@
                                                                 <em class="icon ni ni-calendar-alt"></em>
                                                             </div>
                                                              	<input type="text" th:field="*{productdate}" class="form-control date-picker" >
+                                                             	<p class="text-danger" th:if="${#fields.hasErrors('productdate')}" th:errors="*{productdate}"></p>
                                                             <!-- <input type="date" th:filed="*{productDate}" > -->
                                                         </div>
                                                     </div>
@@ -103,7 +107,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12" th:if="${#httpServletRequest.requestURI == '/admin/form-product'}">
+                                            <div class="col-12">
                                                 <button class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Thêm mới</span></button>
                                             </div>
                                             

@@ -28,7 +28,7 @@
                                                     <label class="form-label" for="product-title">Id</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" th:field="*{id}" class="form-control" placeholder="Id" id="id" disabled="disabled">
-                                                        <p th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p>
+                                                        <!-- <p th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -37,7 +37,7 @@
                                                     <label class="form-label" for="product-title">Loại sản phẩm</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" th:field="*{name}" class="form-control" placeholder="Name" id="name">
-                                                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                                                         <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                                                     </div>
                                                 </div>
                                             </div>

@@ -96,7 +96,7 @@ public class ProductController {
 		return cateDao.findAll();
 	}
 
-	@GetMapping("form-product")
+	@GetMapping("add-product")
 	public String formAddProduct(Product product, Model model) {
 
 		return "admin/product/add-product";
@@ -107,7 +107,7 @@ public class ProductController {
 			@RequestParam("file_product") MultipartFile file, Model model) throws IllegalStateException, IOException {
 
 		if (result.hasErrors()) {
-			return "admin/product/update-product";
+			return "admin/product/add-product";
 		}
 
 		if (file.isEmpty()) {

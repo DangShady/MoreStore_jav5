@@ -160,7 +160,7 @@
                                                        		</a>
                                                         </li>
                                                         
-                                                        <li class="page-item"  th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                                        <li  th:each="i: ${#numbers.sequence(1, totalPages)}" th:class="${i == currentPage ? 'page-item active' : 'page-item'}">
                                                         	<a class="page-link" th:href="@{'/admin/order/page/' + ${i}+${keyword != null ? '?keyword=' + keyword : ''}}">[[${i}]]</a>
                                                         	
                                                         </li>

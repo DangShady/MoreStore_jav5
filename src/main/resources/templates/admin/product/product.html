@@ -45,7 +45,7 @@
                                                         </li>
                                                         <li class="nk-block-tools-opt">
                                                             <a href="#" data-target="addProduct" class="toggle btn btn-icon btn-primary d-md-none"><em class="icon ni ni-plus"></em></a>
-                                                           <a href="/admin/form-product" class="btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Thêm sản phẩm</span></a>
+                                                           <a href="/admin/add-product" class="btn btn-primary d-none d-md-inline-flex"><em class="icon ni ni-plus"></em><span>Thêm sản phẩm</span></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -153,7 +153,7 @@
                                                        		</a>
                                                         </li>
                                                         
-                                                        <li class="page-item"  th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                                        <li    th:each="i: ${#numbers.sequence(1, totalPages)}" th:class="${i == currentPage ? 'page-item active' : 'page-item'}">
                                                         	<a class="page-link" th:href="@{'/admin/product/page/' + ${i} +${keyword != null ? '?keyword=' + keyword : ''}}">[[${i}]]</a>
                                                         	
                                                         </li>
