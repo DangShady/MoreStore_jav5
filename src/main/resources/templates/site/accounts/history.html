@@ -1,0 +1,24 @@
+<div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+						<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Mã đơn hàng</th>
+      <th scope="col">Ngày mua</th>
+      <th scope="col">Sản phẩm</th>
+      <th scope="col">Tổng tiền</th>
+      <th scope="col">Trạng thái</th>
+      <th scope="col">&nbsp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="histo : ${history}">
+      <th scope="row" th:text="'#'+ ${histo[0]}">1</th>
+	    <td th:text="${histo[1]}">Mark</td>
+	    <td th:text="${histo[2]}"></td>
+	    <td th:utext="${#numbers.formatInteger(histo[3],3,'POINT')}+đ"></td>
+	    <td th:text="${histo[4]} ? 'Thành công' : 'Chờ xác nhận'"></td>
+	    <td><a th:href="@{/mstore/history-detail/{id}(id=${histo[0]})}">Xem chi tiết</a></td>
+    </tr>
+  </tbody>
+</table>
+</div>

@@ -1,6 +1,7 @@
 package com.mstore.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
@@ -20,7 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mstore.domain.Account;
 import com.mstore.domain.Category;
+import com.mstore.domain.Order;
 import com.mstore.repository.AccountDAO;
+import com.mstore.repository.OrderDAO;
+import com.mstore.repository.OrderDetailDAO;
 import com.mstore.service.AccountService;
 import com.mstore.utils.CookieService;
 import com.mstore.utils.MailInfo;
@@ -38,6 +42,11 @@ public class AccountController {
 	@Autowired
 	AccountDAO accDao;
 	
+	@Autowired
+	OrderDAO orderDao;
+	
+	@Autowired
+	OrderDetailDAO detailDao;
 	
 	@Autowired
 	HttpSession session;
@@ -154,6 +163,11 @@ public class AccountController {
 			return "site/accounts/register";
 		}
 		
+		if(account.getUsername() != null) {
+			model.addAttribute("message","Tài khoản đã tồn tại");
+			return "site/accounts/register";
+		}
+		
 		account.setDateregister(new Date());
 		account.setAdmin(false);
 		account.setActivated(false);
@@ -197,21 +211,26 @@ public class AccountController {
 			) throws MessagingException {
 		Account account = accService.getByUsername(username);
 		
-		if(account == null) {
+		try {
+			if(account == null) {
+				model.addAttribute("message","Thất bại: Tài khoản của bạn chưa không tồn tại");
+			}
+			else if(!email.equals(account.getEmail())) {
+				model.addAttribute("message","Thất bại: Email đăng kí sai");
+			}
+			else {
+				String to = account.getEmail();
+				String subject = "Quên mật khẩu tài khoản MStore";
+				String body = "Mật khẩu của bạn là: " + account.getPassword() ;
+				
+				MailInfo mail = new MailInfo(to, subject, body);
+				
+				this.mailer.send(mail);
+				model.addAttribute("message","Kiểm tra email của bạn để lấy lại mật khẩu");
+			}
+		} catch (Exception e) {
 			model.addAttribute("message","Thất bại: Tài khoản của bạn chưa không tồn tại");
-		}
-		else if(!email.equals(account.getEmail())) {
-			model.addAttribute("message","Thất bại: Email đăng kí sai");
-		}
-		else {
-			String to = account.getEmail();
-			String subject = "Quên mật khẩu tài khoản MStore";
-			String body = "Mật khẩu của bạn là: " + account.getPassword() ;
-			
-			MailInfo mail = new MailInfo(to, subject, body);
-			
-			this.mailer.send(mail);
-			model.addAttribute("message","Kiểm tra email của bạn để lấy lại mật khẩu");
+			return "site/accounts/forgot-password";
 		}
 		
 		
@@ -222,7 +241,24 @@ public class AccountController {
 	@GetMapping("account/profile")
 	public String profile(Model model,Account account) {
 		
+		Account ac = (Account) session.getAttribute("USERINJD");
+		
+		List<Object[]> listHistoryByCus = accService.getHistory(ac.getUsername());
+		
+		model.addAttribute("history",listHistoryByCus);
+		
 		return "site/accounts/user-profile";
+	}
+	
+	@GetMapping("history-detail/{id}")
+	public String detailOrder(Model model,@PathVariable("id") int id) {
+		
+		Order order = orderDao.getById(id);
+		
+		
+		model.addAttribute("details",detailDao.findByOrder(order));
+		
+		return "site/accounts/history-product";
 	}
 	
 	@PostMapping("account/change-password")
@@ -246,6 +282,7 @@ public class AccountController {
 			account.setPassword(newpass);
 			
 			accDao.save(account);
+			model.addAttribute("message","Đổi mật khẩu thành công");
 		}
 		return "site/accounts/user-profile";
 	}
@@ -254,21 +291,24 @@ public class AccountController {
 	public String changeAccountAdmin(@Valid Account account,BindingResult result,Model model){
 		
 		if(result.hasErrors()) {
-			return "site/accounts/user-profile";
+			
+			Account acc = (Account) session.getAttribute("USERINJD");
+			
+			try {
+				account.setUsername(acc.getUsername());
+				account.setActivated(acc.getActivated());
+				account.setPassword(acc.getPassword());
+				account.setDateregister(acc.getDateregister());
+				account.setAdmin(acc.getAdmin());
+				
+				this.accDao.save(account);
+				
+				session.setAttribute("USERINJD", account);
+			} catch (Exception e) {
+				return "site/accounts/user-profile";
+			}
+			
 		}
-		
-		Account acc = (Account) session.getAttribute("USERINJD");
-		
-		account.setUsername(acc.getUsername());
-		account.setActivated(acc.getActivated());
-		account.setPassword(acc.getPassword());
-		account.setDateregister(acc.getDateregister());
-		account.setAdmin(acc.getAdmin());
-		
-		this.accDao.save(account);
-		
-		session.setAttribute("USERINJD", account);
-		
 		return "redirect:/mstore/account/profile";
 	}
 }

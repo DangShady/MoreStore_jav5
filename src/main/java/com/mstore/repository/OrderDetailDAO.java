@@ -16,6 +16,14 @@ public interface OrderDetailDAO extends JpaRepository<OrderDetail, Integer>{
 	
 	public List<OrderDetail> findByOrder(Order order);
 	
+	
+//	History by customer
+	@Query("SELECT o.id,o.orderdate,COUNT(d.product.name),"
+			+ "o.amount,o.status FROM OrderDetail d,Order o WHERE o.id = d.order.id AND d.order.account.username = ?1"
+			+ " GROUP BY o.id,o.orderdate,o.amount,o.status"
+			+ "  ORDER BY o.id DESC")
+	public List<Object[]> getHistoryByCustomer(String username);
+	
 	@Query("SELECT p.category.name,SUM(p.quantity),SUM(p.price*p.quantity),"
 			+ "MIN(p.price),MAX(p.price),AVG(p.price) FROM Product p GROUP BY p.category.name")
 	public List<Object[]> inventory();

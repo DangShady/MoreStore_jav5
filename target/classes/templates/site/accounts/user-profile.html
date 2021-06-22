@@ -17,6 +17,7 @@
 	<section class="py-5 my-5">
 		<div class="container">
 			<h1 class="mb-5">Thông tin tài khoản</h1>
+			<label class="text-danger" th:text="${message}">Xác nhận mật khẩu mới</label>
 			<div class="bg-white shadow rounded-lg d-block d-sm-flex">
 			<div class="profile-tab-nav border-right">
 					<div class="p-4">
@@ -33,16 +34,18 @@
 							<i class="fa fa-key text-center mr-1"></i>
 							Mật khẩu
 						</a>
-						<a class="nav-link" id="security-tab" data-toggle="pill" href="#security" role="tab"
-							aria-controls="security" aria-selected="false">
+						<a class="nav-link" id="history-tab" data-toggle="pill" href="#history" role="tab"
+							aria-controls="history" aria-selected="false">
 							<i class="fa fa-user text-center mr-1"></i>
-							Security
+							Lịch sử mua hàng
 						</a>
 					</div>
 				</div>
 				<div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
 					<div th:replace="/site/accounts/account"></div>
 					<div th:replace="/site/accounts/password"></div>
+					<div th:replace="/site/accounts/history"></div>
+					
 				</div>
 		</div>
 		</div>	

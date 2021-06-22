@@ -26,7 +26,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label" for="product-title">Tên đăng nhập</label>
                                                     <div class="form-control-wrap">
-                                                        <input type="text" th:field="*{username}" th:value="${session.ADMININJD.getUsername()}" disabled="disabled" class="form-control" id="product-title">
+                                                        <input type="text"  th:value="${session.ADMININJD.getUsername()}" disabled="disabled" class="form-control" id="product-title">
                                                     </div>
                                                 </div>
                                             </div>
@@ -35,6 +35,8 @@
                                                     <label class="form-label" for="product-title">Mật khẩu</label>
                                                     <div class="form-control-wrap">
                                                         <input type="password" name="password" th:value="${session.ADMININJD.getPassword()}" class="form-control" id="product-title">
+                                                        <p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -43,6 +45,8 @@
                                                     <label class="form-label" for="regular-price">Họ và tên</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" name="fullname" th:value="${session.ADMININJD.getFullname()}" class="form-control" id="regular-price">
+                                                        <p class="text-danger" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"></p>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -51,6 +55,7 @@
                                                     <label class="form-label" for="sale-price">Email</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" name="email" th:value="${session.ADMININJD.getEmail()}" class="form-control" id="sale-price">
+                                                        <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -59,6 +64,7 @@
                                                     <label class="form-label" for="stock">Số điện thoại</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" name="phone" th:value="${session.ADMININJD.getPhone()}" class="form-control" id="stock">
+                                                        <p class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -67,6 +73,7 @@
                                                     <label class="form-label" for="SKU">Địa chỉ</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" name="address" th:value="${session.ADMININJD.getAddress()}" class="form-control" id="SKU">
+                                                        <p class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
                                                     </div>
                                                 </div>
                                             </div>

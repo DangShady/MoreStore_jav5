@@ -27,6 +27,8 @@
                                                     <label class="form-label" for="product-title">Tên đăng nhập</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" th:field="*{username}" class="form-control" id="product-title">
+                                                        <p class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+                                                        <p class="text-danger" th:text="${message}"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -35,6 +37,7 @@
                                                     <label class="form-label" for="product-title">Mật khẩu</label>
                                                     <div class="form-control-wrap">
                                                         <input type="password" th:field="*{password}" class="form-control" id="product-title">
+                                                        <p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -43,6 +46,7 @@
                                                     <label class="form-label" for="regular-price">Họ và tên</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" th:field="*{fullname}" class="form-control" id="regular-price">
+                                                        <p class="text-danger" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -51,6 +55,7 @@
                                                     <label class="form-label" for="sale-price">Email</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" th:field="*{email}" class="form-control" id="sale-price">
+                                                        <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -59,6 +64,7 @@
                                                     <label class="form-label" for="stock">Số điện thoại</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" th:field="*{phone}" class="form-control" id="stock">
+                                                        <p class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -67,6 +73,7 @@
                                                     <label class="form-label" for="SKU">Địa chỉ</label>
                                                     <div class="form-control-wrap">
                                                         <input type="text" th:field="*{address}" class="form-control" id="SKU">
+                                                        <p class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
                                                     </div>
                                                 </div>
                                             </div>

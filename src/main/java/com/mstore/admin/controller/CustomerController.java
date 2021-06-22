@@ -132,6 +132,11 @@ public class CustomerController {
 			return "admin/customers/add-customer";
 		}
 		
+		if(account.getUsername() != null) {
+			model.addAttribute("message","Tài khoản đã tồn tại");
+			return "admin/customers/add-customer";
+		}
+		
 		account.setDateregister(new Date());
 		account.setAdmin(true);
 		account.setActivated(true);
@@ -151,21 +156,24 @@ public class CustomerController {
 	public String changeAccountAdmin(@Valid Account account,BindingResult result,Model model){
 		
 		if(result.hasErrors()) {
-			return "admin/customers/setting-admin";
+			
+			Account acc = (Account) session.getAttribute("ADMININJD");
+			
+			try {
+				account.setUsername(acc.getUsername());
+				account.setActivated(acc.getActivated());
+				account.setDateregister(acc.getDateregister());
+				account.setAdmin(acc.getAdmin());
+
+				this.accDao.save(account);
+				
+				session.setAttribute("ADMININJD", account);
+			} catch (Exception e) {
+				return "admin/customers/setting-admin";
+			}	
 		}
-		
-		Account acc = (Account) session.getAttribute("ADMININJD");
-		
-		account.setUsername(acc.getUsername());
-		account.setActivated(acc.getActivated());
-		account.setDateregister(acc.getDateregister());
-		account.setAdmin(acc.getAdmin());
-		
-		this.accDao.save(account);
-		
-		session.setAttribute("ADMININJD", account);
-		
-		return "redirect:/admin/admin-page";
+
+		return "redirect:/admin/change-admin";
 	}
 	
 	@GetMapping("customer/delete/{username}")

@@ -91,6 +91,7 @@ public class OrderController {
 		
 		cart.clear();	
 		session.setAttribute("amountCart", cart.getAmount());
+		session.setAttribute("countCart", cart.getCount());
 		return "redirect:/mstore/thank-you-and-wellcome-back";
 	}
 	
