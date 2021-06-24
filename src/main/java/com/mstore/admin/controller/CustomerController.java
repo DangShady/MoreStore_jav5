@@ -4,6 +4,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
@@ -132,18 +133,22 @@ public class CustomerController {
 			return "admin/customers/add-customer";
 		}
 		
-		if(account.getUsername() != null) {
+		Optional<Account> ac = accDao.findById(account.getUsername());
+		
+		if(!ac.isEmpty()) {
 			model.addAttribute("message","Tài khoản đã tồn tại");
-			return "admin/customers/add-customer";
-		}
-		
-		account.setDateregister(new Date());
-		account.setAdmin(true);
-		account.setActivated(true);
 			
-		this.accDao.save(account);
-		
-		return "redirect:/admin/customer";
+		}
+		else {
+			account.setDateregister(new Date());
+			account.setAdmin(true);
+			account.setActivated(true);
+				
+			this.accDao.save(account);
+			
+			return "redirect:/admin/customer";
+		}
+		return "admin/customers/add-customer";
 	}
 	
 	@GetMapping("change-admin")

@@ -26,9 +26,9 @@ public class InterceprorConf implements WebMvcConfigurer{
 		registry.addInterceptor(global).addPathPatterns("/mstore/**").excludePathPatterns("/static/**");
 		
 		registry.addInterceptor(auth).addPathPatterns("/mstore/account/profile",
-				"/mstore/account/logoff","/mstore/order-cart/**");
+				"/mstore/account/logoff","/mstore/order-cart/**","/mstore/history-detail/**");
 		
-		registry.addInterceptor(authAdmin).addPathPatterns("/admin/admin-page");
+		registry.addInterceptor(authAdmin).addPathPatterns("/admin/**");
 	}
 	
 }	

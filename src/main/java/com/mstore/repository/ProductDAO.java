@@ -35,19 +35,19 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
 	public List<Product> findProductByNameAndSort(String keyword,Sort sort);
 	
 	@Query("SELECT p FROM Product p WHERE "
-			+ "CONCAT(p.name, p.category.name) LIKE %?1% ORDER BY p.productdate DESC")
+			+ "CONCAT(p.name, p.category.name) LIKE %?1% ORDER BY p.id DESC")
 	public Page<Product> findAllProductAdmin(String keyword,Pageable pageable);
 	
-	@Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
+	@Query("SELECT p FROM Product p WHERE p.name LIKE %?1% ORDER BY p.productdate DESC")
 	public List<Product> findAllByProductName(String productName);
 	
-	@Query("SELECT p FROM Product p WHERE p.category.id =?1")
+	@Query("SELECT p FROM Product p WHERE p.category.id =?1 ORDER BY p.productdate DESC")
 	public List<Product> findAllByAsscess(Integer id);
 	
 	@Query("SELECT p FROM Product p ORDER BY p.productdate DESC")
 	public List<Product> newProducts(Pageable pageable);
 	
-	@Query("SELECT p FROM Product p ORDER BY p.productdate DESC")
+	@Query("SELECT p FROM Product p ORDER BY p.id DESC")
 	public Page<Product> listAll(Pageable pageable);
 
 	

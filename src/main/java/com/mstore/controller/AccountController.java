@@ -2,6 +2,7 @@ package com.mstore.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
@@ -64,18 +65,19 @@ public class AccountController {
 	@GetMapping("account/login")
 	public String viewLogin(Model model) {
 		
-		Cookie ckusername = cookie.read("USERINCK");
-		Cookie ckpassword = cookie.read("PASSINCK");
-		
-		if(ckusername != null) {
-			String username = ckusername.getValue();
-			String password = ckpassword.getValue();
+			Cookie ckusername = cookie.read("USERINCK");
+			Cookie ckpassword = cookie.read("PASSINCK");
 			
-			model.addAttribute("username",username);
-			model.addAttribute("password",password);
-		}
-		
-		return "site/accounts/login";
+			if(ckusername != null) {
+				String username = ckusername.getValue();
+				String password = ckpassword.getValue();
+				
+				model.addAttribute("username",username);
+				model.addAttribute("password",password);
+			}
+			
+			
+			return "site/accounts/login";	
 	}
 	
 
@@ -162,28 +164,32 @@ public class AccountController {
 		if(result.hasErrors()) {
 			return "site/accounts/register";
 		}
+		Optional<Account> ac = accDao.findById(account.getUsername());
+		System.out.println("USERNAME: " + account.getUsername());
 		
-		if(account.getUsername() != null) {
-			model.addAttribute("message","Tài khoản đã tồn tại");
-			return "site/accounts/register";
+		
+		if(!ac.isEmpty()) {
+			model.addAttribute("message","Tài khoản đã tồn tại");	
 		}
-		
-		account.setDateregister(new Date());
-		account.setAdmin(false);
-		account.setActivated(false);
-		
-		this.accDao.save(account);
-		
-		String to = account.getEmail();
-		String subject = "Kích hoạt tài khoản MStore";
-		String url = request.getRequestURL().toString().replace("register", "activated/" + account.getUsername());
-		String body = "<a href='"+url+"'>Nhấn vào liên kết để kích hoạt tài khoản của bạn</a>";
-		
-		MailInfo mail = new MailInfo(to, subject, body);
-		
-		this.mailer.send(mail);
-		
-		return "redirect:/mstore/thank";
+		else {
+			account.setDateregister(new Date());
+			account.setAdmin(false);
+			account.setActivated(false);
+			
+			this.accDao.save(account);
+			
+			String to = account.getEmail();
+			String subject = "Kích hoạt tài khoản MStore";
+			String url = request.getRequestURL().toString().replace("register", "activated/" + account.getUsername());
+			String body = "<a href='"+url+"'>Nhấn vào liên kết để kích hoạt tài khoản của bạn</a>";
+			
+			MailInfo mail = new MailInfo(to, subject, body);
+			
+			this.mailer.send(mail);
+			
+			return "redirect:/mstore/thank";
+		}
+		return "site/accounts/register";
 	}
 	
 	@GetMapping("account/activated/{username}")

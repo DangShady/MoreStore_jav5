@@ -113,7 +113,7 @@ public class CategoryController {
 	    
 	    model.addAttribute("categorys", this.cateDao.findAll());
 	    
-	    return "admin/category/category";
+	    return "redirect:/admin/category";
 	}
 	
 }

@@ -124,7 +124,7 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li><a th:href="@{/admin/edit-product/{id}(id=${product.id})}"><em class="icon ni ni-edit"></em><span>Sửa sản phẩm</span></a></li>
-                                                                    <li><a href="#"><em class="icon ni ni-eye"></em><span>Xem chi tiết sản phẩm</span></a></li>
+                                                                    <li><a th:href="@{/mstore/product-detail/product/{id}(id=${product.id})}"><em class="icon ni ni-eye"></em><span>Xem chi tiết sản phẩm</span></a></li>
                                                                     <li><a href="#"><em class="icon ni ni-activity-round"></em><span>Thêm sản phẩm vào order</span></a></li>
                                                                     <li><a th:href="@{/admin/delete-product/{id}(id=${product.id})}"><em class="icon ni ni-trash"></em><span>Xóa sản phẩm</span></a></li>
                                                                 </ul>
