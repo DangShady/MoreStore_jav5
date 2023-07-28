@@ -177,15 +177,15 @@ public class AccountController {
 			account.setActivated(false);
 			
 			this.accDao.save(account);
-			
-			String to = account.getEmail();
-			String subject = "Kích hoạt tài khoản MStore";
-			String url = request.getRequestURL().toString().replace("register", "activated/" + account.getUsername());
-			String body = "<a href='"+url+"'>Nhấn vào liên kết để kích hoạt tài khoản của bạn</a>";
-			
-			MailInfo mail = new MailInfo(to, subject, body);
-			
-			this.mailer.send(mail);
+//			
+//			String to = account.getEmail();
+//			String subject = "Kích hoạt tài khoản MStore";
+//			String url = request.getRequestURL().toString().replace("register", "activated/" + account.getUsername());
+//			String body = "<a href='"+url+"'>Nhấn vào liên kết để kích hoạt tài khoản của bạn</a>";
+//			
+//			MailInfo mail = new MailInfo(to, subject, body);
+//			
+//			this.mailer.send(mail);
 			
 			return "redirect:/mstore/thank";
 		}
@@ -286,11 +286,10 @@ public class AccountController {
 		}
 		else {
 			account.setPassword(newpass);
-			
 			accDao.save(account);
 			model.addAttribute("message","Đổi mật khẩu thành công");
 		}
-		return "site/accounts/user-profile";
+		return "redirect:/mstore/account/profile";
 	}
 	
 	@PostMapping("account/change-profile")
